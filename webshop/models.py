@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 current_user = get_user_model()
 
@@ -14,6 +15,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
+    class Meta:
+        abstract = True #
+
+
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     name_product = models.CharField(max_length=255, verbose_name='Название товара')
     slug_product = models.SlugField(unique=True)
@@ -27,8 +33,10 @@ class Product(models.Model):
 
 class BasketProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
-    basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, verbose_name='Товар', on_delete=models.CASCADE)
+    basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_basket')
+    content = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    cont_object = GenericForeignKey('content', 'object_id')
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Общая сумма')
 
@@ -38,7 +46,7 @@ class BasketProduct(models.Model):
 
 class Basket(models.Model):
     holder = models.ForeignKey('Customer', on_delete=models.CASCADE, verbose_name='Пользователь')
-    products = models.ManyToManyField(BasketProduct, blank=True)
+    products = models.ManyToManyField(BasketProduct, blank=True, related_name='related_basket')
     total_products = models.PositiveIntegerField(default=0)
     final_amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Общая сумма')
 
@@ -55,12 +63,4 @@ class Customer(models.Model):
     def __str__(self):
         return f'Пользователь: {self.user.first_name} {self.user.last_name}'
 
-
-class Characteristic(models.Model):
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    id_obj = models.PositiveIntegerField()
-    name = models.CharField(max_length=255, verbose_name='Название товара для характеритик')
-
-    def __str__(self):
-        return f'Характеристики товара: {self.name}'
 
