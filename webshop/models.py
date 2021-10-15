@@ -5,6 +5,18 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 current_user = get_user_model()
 
+class LatestManager:
+    @staticmethod
+    def get_product_models(*args, **kwargs):
+        products = []
+        cnt_models = ContentType.objects.filter(model__in=args)
+        for cnt_model in cnt_models:
+            model_prod = cnt_model.model_class()._base_manager.all().order_by('-id')[:5]
+            products.extend(model_prod)
+        return products
+
+class Latest():
+    objects = LatestManager()
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, verbose_name='Название катеории')
