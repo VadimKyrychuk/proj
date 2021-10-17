@@ -1,5 +1,6 @@
 from django import template
 from django.utils.safestring import mark_safe
+from webshop.models import Smartphone
 
 register = template.Library()
 
@@ -47,6 +48,11 @@ PRODUCT_CHARACTERISTIC = {
 @register.filter
 def product_characteristic(product):
     model_name = product.__class__._meta.model_name
+    if isinstance(product, Smartphone):
+        if not product.sd_card:
+            PRODUCT_CHARACTERISTIC['smartphone'].pop('Максимальный объем SD')
+        else:
+            PRODUCT_CHARACTERISTIC['smartphone']['Максимальный объем SD'] = 'sd_card_max_size'
     return mark_safe(TABLE_HEAD + get_prod_characteristic(product, model_name) + TABLE_BOTTOM)
 
 

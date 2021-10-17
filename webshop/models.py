@@ -75,7 +75,7 @@ class Smartphone(Product):
     accum = models.CharField(max_length=255, verbose_name="Объем аккумулятора")
     ram = models.CharField(max_length=64, verbose_name="Оперативная память")
     sd_card = models.BooleanField(default=True, verbose_name="Возможность использования SD карты")
-    sd_card_max_size = models.CharField(max_length=255, verbose_name=" Максимальный объем карты памяти")
+    sd_card_max_size = models.CharField(max_length=255,null=True, blank=True,verbose_name=" Максимальный объем карты памяти")
     main_cam = models.CharField(max_length=64, verbose_name="Главная камера")
     front_cam = models.CharField(max_length=64, verbose_name="Фронтальная камера")
 
