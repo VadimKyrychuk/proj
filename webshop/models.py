@@ -6,12 +6,17 @@ from django.urls import reverse
 
 
 def get_product_url(obj, viewname):
+
     ct_model = obj.__class__._meta.model_name
     return reverse(viewname, kwargs={'ct_model': ct_model, 'slug': obj.slug})
 
 
 current_user = get_user_model()
 
+
+def get_count_model(*model_names):
+
+    return [models.Count(model_name) for model_name in model_names]
 
 class LatestManager:
     @staticmethod
@@ -24,17 +29,37 @@ class LatestManager:
         return products
 
 
-class Latest():
+class Latest:
     objects = LatestManager()
 
+
+class ManagerCategory(models.Manager):
+    CATEGORY_COUNT_NAME = {
+        'Ноутбуки': "notebook__count",
+        "Смартфоны": "smartphone__count"
+    }
+
+    def get_query_set(self):
+        return super().get_queryset()
+
+    def get_category_for_navbar(self):
+        count_model = get_count_model('notebook', 'smartphone')
+        query_set = list(self.get_query_set().annotate(*count_model))
+        info = [
+            dict(name=c.name_category, url = c.get_absolute_url(), count = getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
+        ]
+        return info
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, verbose_name='Название катеории')
     slug = models.SlugField(unique=True)
+    objects = ManagerCategory()
 
     def __str__(self):
         return self.name_category
 
+    def get_absolute_url(self):
+        return reverse('category_details', kwargs={'slug':self.slug})
 
 class Product(models.Model):
     class Meta:

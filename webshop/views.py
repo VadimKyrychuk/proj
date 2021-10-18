@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from .models import Notebook, Smartphone
+from .models import Notebook, Smartphone, Category
 
 def index(request):
-    return render(request, 'base.html')
+    category_for_navbar = Category.objects.get_category_for_navbar()
+    return render(request, 'base.html', {'categories':category_for_navbar})
 
 class ProductDetail(DetailView):
 
@@ -19,4 +20,12 @@ class ProductDetail(DetailView):
 
     context_object_name = 'product'
     template_name = 'product.html'
+    slug_url_kwarg = 'slug'
+
+
+class CategoryDetail(DetailView):
+    model = Category
+    queryset = Category.objects.all()
+    context_object_name = 'category'
+    template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
