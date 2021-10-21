@@ -6,7 +6,6 @@ from django.urls import reverse
 
 
 def get_product_url(obj, viewname):
-
     ct_model = obj.__class__._meta.model_name
     return reverse(viewname, kwargs={'ct_model': ct_model, 'slug': obj.slug})
 
@@ -15,8 +14,8 @@ current_user = get_user_model()
 
 
 def get_count_model(*model_names):
-
     return [models.Count(model_name) for model_name in model_names]
+
 
 class LatestManager:
     @staticmethod
@@ -46,9 +45,11 @@ class ManagerCategory(models.Manager):
         count_model = get_count_model('notebook', 'smartphone')
         query_set = list(self.get_query_set().annotate(*count_model))
         info = [
-            dict(name=c.name_category, url = c.get_absolute_url(), count = getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
+            dict(name=c.name_category, url=c.get_absolute_url(),
+                 count=getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
         ]
         return info
+
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, verbose_name='Название катеории')
@@ -59,7 +60,8 @@ class Category(models.Model):
         return self.name_category
 
     def get_absolute_url(self):
-        return reverse('category_details', kwargs={'slug':self.slug})
+        return reverse('category_details', kwargs={'slug': self.slug})
+
 
 class Product(models.Model):
     class Meta:
@@ -84,11 +86,12 @@ class Notebook(Product):
     ram = models.CharField(max_length=255, verbose_name="Оперативная память")
     video = models.CharField(max_length=255, verbose_name="Видеокарта")
 
+
     def __str__(self):
         return f'{self.category.name_category}: {self.name_product}'
 
     def get_absolute_url(self):
-        return get_product_url(self, 'product_detail')
+        return get_product_url(self, 'product_details')
 
 
 class Smartphone(Product):
@@ -100,7 +103,7 @@ class Smartphone(Product):
     accum = models.CharField(max_length=255, verbose_name="Объем аккумулятора")
     ram = models.CharField(max_length=64, verbose_name="Оперативная память")
     sd_card = models.BooleanField(default=True, verbose_name="Возможность использования SD карты")
-    sd_card_max_size = models.CharField(max_length=255,null=True, blank=True,verbose_name=" Максимальный объем карты памяти")
+    sd_card_max_size = models.CharField(max_length=255, null=True, blank=True, verbose_name="Максимальный объем SD")
     main_cam = models.CharField(max_length=64, verbose_name="Главная камера")
     front_cam = models.CharField(max_length=64, verbose_name="Фронтальная камера")
 
@@ -108,7 +111,7 @@ class Smartphone(Product):
         return f'{self.category.name_category}: {self.name_product}'
 
     def get_absolute_url(self):
-        return get_product_url(self, 'product')
+        return get_product_url(self, 'product_details')
 
 
 class BasketProduct(models.Model):
@@ -122,25 +125,38 @@ class BasketProduct(models.Model):
     total_price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Общая сумма')
 
     def __str__(self):
-        return f'Товар: {self.product.name_product} {self.product.price}'
+        return f'Товар: {self.cont_object.name_product} {self.cont_object.price}'
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.quantity * self.cont_object.price
+        super().save(*args, **kwargs)
 
 
 class Basket(models.Model):
-    holder = models.ForeignKey('Customer', on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    holder = models.ForeignKey('Customer', null=True ,on_delete=models.CASCADE, verbose_name='Пользователь')
     products = models.ManyToManyField(BasketProduct, blank=True, related_name='related_basket')
     total_products = models.PositiveIntegerField(default=0)
-    final_amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Общая сумма')
+    total_price = models.DecimalField(max_digits=12, default=0, decimal_places=2, verbose_name='Общая сумма')
     in_order = models.BooleanField(default=False)
     anonym_user = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id)
+        return f'{self.id} {self.products}'
 
+    def save(self, *args, **kwargs):
+        basket_data = self.products.aggregate(models.Sum('total_price'), models.Count('id'))
+        if basket_data.get('total_price__sum'):
+            self.final_amount = basket_data.get('total_price__sum')
+        else:
+            self.final_amount = 0
+        self.total_products = basket_data['id__count']
+        super().save(*args, **kwargs)
 
 class Customer(models.Model):
     user = models.ForeignKey(current_user, verbose_name='Пользователь', on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20, verbose_name='Номер телефона')
-    adress = models.CharField(max_length=255, verbose_name='Адресс проживания')
+    phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
+    adress = models.CharField(max_length=255, verbose_name='Адресс проживания', null=True, blank=True)
 
     def __str__(self):
         return f'Пользователь: {self.user.first_name} {self.user.last_name}'
