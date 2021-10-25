@@ -50,7 +50,7 @@ def product_characteristic(product):
     model_name = product.__class__._meta.model_name
     if isinstance(product, Smartphone):
         if not product.sd_card:
-            PRODUCT_CHARACTERISTIC['smartphone'].pop('Максимальный объем SD')
+            PRODUCT_CHARACTERISTIC['smartphone'].pop('Максимальный объем SD', None)
         else:
             PRODUCT_CHARACTERISTIC['smartphone']['Максимальный объем SD'] = 'sd_card_max_size'
     return mark_safe(TABLE_HEAD + get_prod_characteristic(product, model_name) + TABLE_BOTTOM)

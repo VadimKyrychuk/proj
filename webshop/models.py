@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.urls import reverse
+from django.utils import timezone
 
 
 def get_product_url(obj, viewname):
@@ -77,6 +78,9 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.category} {self.name_product} {self.price}'
 
+    def get_model_name(self):
+        return self.__class__.__name__.lower()
+
 
 class Notebook(Product):
     brand = models.CharField(max_length=255, verbose_name='Бренд ноутбука')
@@ -92,6 +96,8 @@ class Notebook(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_details')
+
+
 
 
 class Smartphone(Product):
@@ -114,6 +120,8 @@ class Smartphone(Product):
         return get_product_url(self, 'product_details')
 
 
+
+
 class BasketProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE,
@@ -132,6 +140,7 @@ class BasketProduct(models.Model):
         super().save(*args, **kwargs)
 
 
+
 class Basket(models.Model):
 
     holder = models.ForeignKey('Customer', null=True ,on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -144,19 +153,50 @@ class Basket(models.Model):
     def __str__(self):
         return f'{self.id} {self.products}'
 
-    def save(self, *args, **kwargs):
-        basket_data = self.products.aggregate(models.Sum('total_price'), models.Count('id'))
-        if basket_data.get('total_price__sum'):
-            self.final_amount = basket_data.get('total_price__sum')
-        else:
-            self.final_amount = 0
-        self.total_products = basket_data['id__count']
-        super().save(*args, **kwargs)
-
+   
 class Customer(models.Model):
     user = models.ForeignKey(current_user, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
     adress = models.CharField(max_length=255, verbose_name='Адресс проживания', null=True, blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_customer')
 
     def __str__(self):
         return f'Пользователь: {self.user.first_name} {self.user.last_name}'
+
+
+class Order(models.Model):
+    STATUS_NEW = 'new'
+    STATUS_IN_PROC = 'in_process'
+    STATUS_ON_THE_WAY = 'on_the_way'
+    STATUS_COMPLETED = 'completed'
+    DELIVERY_METHOD_SELF = 'self-pickup'
+    DELIVERY_METHOD_DELIVERY = 'delivery'
+
+    STATUS_CHOICE = (
+        (STATUS_NEW, 'Новый заказ'),
+        (STATUS_IN_PROC, "Обрабатывается менеджером"),
+        (STATUS_ON_THE_WAY, "В пути"),
+        (STATUS_COMPLETED, "Выполнен")
+    )
+
+    DELIVERY_CHOICE = (
+        (DELIVERY_METHOD_SELF, 'Самовывоз'),
+        (DELIVERY_METHOD_DELIVERY, 'Доставка')
+    )
+
+
+
+    customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.CASCADE, related_name='related_orders')
+    first_name = models.CharField(max_length=255, verbose_name='Имя')
+    last_name = models.CharField(max_length=255, verbose_name='Фамилия')
+    phone = models.CharField(max_length=20, verbose_name='Номер телефона')
+    basket = models.ForeignKey(Basket, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
+    adress = models.CharField(max_length=1024, verbose_name='Адрес', null=True, blank=True)
+    status = models.CharField(max_length=100, verbose_name='Статус заказа', choices=STATUS_CHOICE, default=STATUS_NEW)
+    buy_type = models.CharField(max_length=100, verbose_name='Тип заказа', choices=DELIVERY_CHOICE, default=DELIVERY_METHOD_SELF)
+    comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now=True, verbose_name="Дата создания заказа")
+    order_date = models.DateField(verbose_name="Дата получения заказа", default=timezone.now)
+
+    def __str__(self):
+        return str(self.id)
