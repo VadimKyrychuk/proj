@@ -9,9 +9,6 @@ from .forms import OrderForm
 from .util import calculated_basket
 from django.db import transaction
 
-# def index(request):
-#     category_for_navbar = Category.objects.get_category_for_navbar()
-#     return render(request, 'base.html', {'categories':category_for_navbar})
 
 class MainView(CartMix, View):
 

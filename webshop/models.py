@@ -98,9 +98,8 @@ class Notebook(Product):
         return get_product_url(self, 'product_details')
 
 
-
-
 class Smartphone(Product):
+
     brand = models.CharField(max_length=64, verbose_name='Бренд смартфона')
     model_smart = models.CharField(max_length=64, verbose_name='Модель смартфона')
     diagonal = models.CharField(max_length=255, verbose_name="Диагональ")
@@ -132,6 +131,7 @@ class BasketProduct(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Общая сумма')
 
+
     def __str__(self):
         return f'Товар: {self.cont_object.name_product} {self.cont_object.price}'
 
@@ -143,17 +143,18 @@ class BasketProduct(models.Model):
 
 class Basket(models.Model):
 
-    holder = models.ForeignKey('Customer', null=True ,on_delete=models.CASCADE, verbose_name='Пользователь')
+    holder = models.ForeignKey('Customer', null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
     products = models.ManyToManyField(BasketProduct, blank=True, related_name='related_basket')
     total_products = models.PositiveIntegerField(default=0)
     total_price = models.DecimalField(max_digits=12, default=0, decimal_places=2, verbose_name='Общая сумма')
     in_order = models.BooleanField(default=False)
     anonym_user = models.BooleanField(default=False)
+    session_key = models.CharField(max_length=40, null=True, blank=True)
 
     def __str__(self):
         return f'{self.id} {self.products}'
 
-   
+
 class Customer(models.Model):
     user = models.ForeignKey(current_user, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
@@ -183,8 +184,6 @@ class Order(models.Model):
         (DELIVERY_METHOD_SELF, 'Самовывоз'),
         (DELIVERY_METHOD_DELIVERY, 'Доставка')
     )
-
-
 
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.CASCADE, related_name='related_orders')
     first_name = models.CharField(max_length=255, verbose_name='Имя')
