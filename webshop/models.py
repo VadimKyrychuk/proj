@@ -119,8 +119,6 @@ class Smartphone(Product):
         return get_product_url(self, 'product_details')
 
 
-
-
 class BasketProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE,
