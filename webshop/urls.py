@@ -1,6 +1,9 @@
 from django.urls import path, include
 from .views import *
+<<<<<<< HEAD
 from django.contrib.auth.views import LogoutView
+=======
+>>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 
 urlpatterns = [
     path('', MainView.as_view(), name='base'),
@@ -9,6 +12,7 @@ urlpatterns = [
     path('basket/',  BasketView.as_view(), name='basket'),
     path('add-to-basket/<str:ct_model>/<str:slug>/',  AddToBasket.as_view(), name='add_to_basket'),
     path('remove-from-basket/<str:ct_model>/<str:slug>/',  DeleteFromBasket.as_view(), name='delete_from_basket'),
+<<<<<<< HEAD
     path('change-quant/<str:ct_model>/<str:slug>/', ChangeQuant.as_view(), name='change_quant'),
     path('check/',  CheckView.as_view(), name='check'),
     path('make-order/',  MakeOrder.as_view(), name='make_order'),
@@ -16,4 +20,9 @@ urlpatterns = [
     path('logout/',  LogoutView.as_view(next_page='/'), name='logout'),
     path('registration/',  RegistrationView.as_view(), name='registration'),
     path('profile/',  Profile.as_view(), name='profile')
+=======
+    path('change-quant/<str:ct_model>/<str:slug>/',  ChangeQuant.as_view(), name='change_quant'),
+    path('check/',  CheckView.as_view(), name='check'),
+    path('make-order/',  MakeOrder.as_view(), name='make_order')
+>>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 ]
