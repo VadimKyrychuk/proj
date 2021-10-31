@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3 class="mb-3 mt-3"> Ваши заказы </h3>
+    {% if not orders.count %}
+        <div class="col-md-12" style="margin-top: 300px;margin-bottom: 300px">
+            <h3>У вас еще нет заказов <a href="{% url 'base' %}">Сделайте свой первый заказ</a></h3>
+        </div>
+    {% else %}
+        <div class="col-md-12" style="margin-bottom: 250px; margin-top: 50px">
+            <table class="table">
+                <thead>
+                <th scope="col">Номер</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Сумма</th>
+                <th scope="col">Товар</th>
+                <th scope="col">Дополнительно</th>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ order.id }}</th>
+                        <th scope="row">{{ order.get_status_display }}</th>
+                        <th scope="row">{{ order.basket.total_price }}</th>
+                        <th>
+                            <ol>
+                                {% for item in order.basket.products.all %}
+                                    <li>{{ item.product.name_product }} -> {{ item.quantity }} шт.</li>
+
+                                {% endfor %}
+                            </ol>
+                        </th>
+                        <td>
+                            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal-{{ order.id }}">
+                                Дополнительно
+                            </button>
+                            <div class="modal fade" id="exampleModal-{{ order.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Детализация</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-center">Товар</h4>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Наименование</th>
+                                                    <th scope="col">Изображение</th>
+                                                    <th scope="col">Цена</th>
+                                                    <th scope="col">Количество</th>
+                                                    <th scope="col">Общая сумма</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in order.basket.products.all %}
+                                                    <tr>
+                                                    <th scope="row">{{ item.product.name_product }}</th>
+                                                    <td class="w-25"><img src="{{ item.product.image_product.url }}" class="img-fluid"></td>
+                                                    <td>{{ item.product.price }}</td>
+                                                    <td>{{ item.quantity }}</td>
+                                                    <td>{{ item.total_price }} грн.</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                    <td>Всего: </td>
+                                                    <td>{{ order.basket.total_products }}</td>
+                                                    <td>{{ order.basket.total_price }} грн.</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Закрыть
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endif %}
+{% endblock %}
