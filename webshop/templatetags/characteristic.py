@@ -58,14 +58,8 @@ def product_characteristic(product):
 
 def get_prod_characteristic(product, model_name):
     table_content = ''
-<<<<<<< HEAD
     for name, value in PRODUCT_CHARACTERISTIC[model_name].items():
         print(value)
         if isinstance(product, Smartphone):
             table_content += TABLE_MAIN_CONTENT.format(name=name, value=getattr(product, value))
-=======
-    print(model_name)
-    for name, value in PRODUCT_CHARACTERISTIC[model_name].items():
-        table_content += TABLE_MAIN_CONTENT.format(name=name, value=getattr(product, value))
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
     return table_content

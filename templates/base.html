@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
     {% load static %}
-=======
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Shop Homepage - Start Bootstrap Template</title>
-<<<<<<< HEAD
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-=======
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
-    <!-- Bootstrap icons-->
-    {% load static %}
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
+
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
 
-
 </head>
-<<<<<<< HEAD
-<div>
+
+
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -79,55 +69,12 @@
         </div>
     </div>
 </nav>
-<div class="container">
-=======
 <body>
-<!-- Navigation-->
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
-            </div>
-
-            <form class="d-flex">
-                <button class="btn btn-outline-light" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    <a href="{% url 'basket' %}">Корзина</a>
-
-                    <span class="badge bg-light text-dark ms-1 rounded-pill">{{ basket.products.count }}</span>
-                </button>
-            </form>
-        </div>
-    </div>
-</header>
 <div class="container">
 
     <div class="row">
-
-        <div class="col-lg-3 mt-5">
-            <div class="list-group">
-                {% for category in categories %}
-                    <a href="{{ category.url }}" class="list-group-item">{{ category.name }} ({{ category.count }})</a>
-                {% endfor %}
-            </div>
-
-        </div>
         <!-- /.col-lg-3 -->
-
         <div class="col-lg-9">
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
             {% block content %}
                 {% if messages %}
                     {% for message in messages %}
@@ -176,11 +123,7 @@
                                     <h4 class="card-title">
                                         <a href="{{ product.get_absolute_url }}">{{ product.name_product }}</a>
                                     </h4>
-<<<<<<< HEAD
                                     <h5>{{ product.price }} грн.</h5>
-=======
-                                    <h5>{{ product.price }} руб.</h5>
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
                                     <a href="{% url 'add_to_basket' ct_model=product.get_model_name slug=product.slug %}">
                                         <button class="btn btn-danger">Добавить в корзину</button>
                                     </a>
@@ -189,24 +132,11 @@
                         </div>
                     {% endfor %}
                 </div>
-<<<<<<< HEAD
-
             {% endblock content %}
         </div>
 </div>
-
-=======
-                <!-- /.row -->
-            {% endblock content %}
-        </div>
-        <!-- /.col-lg-9 -->
-
-    </div>
-    <!-- /.row -->
-
 </div>
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
-
+</body>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
@@ -214,12 +144,10 @@
 <!-- Bootstrap core JS-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<<<<<<< HEAD
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-=======
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
-</body>
 </html>

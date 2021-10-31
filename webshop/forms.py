@@ -1,9 +1,6 @@
 from .models import Order
 from django import forms
-<<<<<<< HEAD
 from django.contrib.auth.models import User
-=======
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 
 
 class OrderForm(forms.ModelForm):
@@ -17,7 +14,6 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = (
             'first_name', 'last_name', 'phone', 'adress', 'buy_type', 'order_date', 'comment')
-<<<<<<< HEAD
 
 
 class LoginForm(forms.ModelForm):
@@ -88,5 +84,3 @@ class Registration(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError('Пароли не совпадают')
         return self.cleaned_data
-=======
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735

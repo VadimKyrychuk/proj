@@ -119,11 +119,6 @@ class Smartphone(Product):
         return get_product_url(self, 'product_details')
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 class BasketProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE,
@@ -152,10 +147,6 @@ class Basket(models.Model):
     total_price = models.DecimalField(max_digits=12, default=0, decimal_places=2, verbose_name='Общая сумма')
     in_order = models.BooleanField(default=False)
     anonym_user = models.BooleanField(default=False)
-<<<<<<< HEAD
-=======
-    session_key = models.CharField(max_length=40, null=True, blank=True)
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 
     def __str__(self):
         return f'{self.id} {self.products}'

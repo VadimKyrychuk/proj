@@ -1,7 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render
 from django.views.generic import DetailView, View
-<<<<<<< HEAD
 from .models import Notebook, Smartphone, Category, Latest, Customer, BasketProduct, Order
 from .mixins import CategoryMixin, CartMix
 from django.http import HttpResponseRedirect
@@ -10,7 +9,6 @@ from .forms import OrderForm, LoginForm, Registration
 from .util import calculated_basket
 from django.db import transaction
 from django.contrib.auth import authenticate, login
-=======
 from .models import Notebook, Smartphone, Category, Latest, Customer, Basket, BasketProduct
 from .mixins import CategoryMixin, CartMix
 from django.http import HttpResponseRedirect
@@ -18,7 +16,6 @@ from django.contrib import messages
 from .forms import OrderForm
 from .util import calculated_basket
 from django.db import transaction
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 
 
 class MainView(CartMix, View):
@@ -57,11 +54,7 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
         return context
 
 
-<<<<<<< HEAD
 class CategoryDetail(CartMix, CategoryMixin, DetailView):
-=======
-class CategoryDetail(CartMix,CategoryMixin, DetailView):
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
     model = Category
     queryset = Category.objects.all()
     context_object_name = 'category'
@@ -71,17 +64,13 @@ class CategoryDetail(CartMix,CategoryMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['basket'] = self.basket
-<<<<<<< HEAD
         print(context)
-=======
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
         return context
 
 
 class AddToBasket(CartMix, View):
 
     def get(self, request, *args, **kwargs):
-<<<<<<< HEAD
         if request.user.is_authenticated:
             ct_model, prod_slug = kwargs.get('ct_model'), kwargs.get('slug')
             content_type = ContentType.objects.get(model=ct_model)
@@ -96,18 +85,7 @@ class AddToBasket(CartMix, View):
         else:
             messages.add_message(request, messages.INFO, 'Авторизируйтесь для возможности покупки')
             return HttpResponseRedirect('/')
-=======
-        ct_model, prod_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=prod_slug)
-        basket_product, created = BasketProduct.objects.get_or_create(
-            user=self.basket.holder, basket=self.basket, content=content_type, object_id=product.id)
-        if created:
-            self.basket.products.add(basket_product)
-        calculated_basket(self.basket)
-        messages.add_message(request, messages.INFO, 'Товар успешно добавлен')
-        return HttpResponseRedirect('/basket/')
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
+
 
 
 class DeleteFromBasket(CartMix, View):
@@ -190,7 +168,6 @@ class MakeOrder(CartMix, View):
             return HttpResponseRedirect('/')
         return HttpResponseRedirect('/check/')
 
-<<<<<<< HEAD
 
 class LoginView(CartMix, View):
     def get(self, request, *args, **kwargs):
@@ -247,5 +224,4 @@ class Profile(CartMix, View):
         orders = Order.objects.filter(customer=customer).order_by('-created_at')
         categories = Category.objects.all()
         return render(request, 'profile.html', {'orders': orders, 'basket':self.basket, 'categories': categories})
-=======
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
+

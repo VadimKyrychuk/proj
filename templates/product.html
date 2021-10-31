@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load characteristic %}
-<<<<<<< HEAD
-{% block content %}
-=======
   {% block content %}
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 <nav aria-label="breadcrumb" class="mt-3">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
@@ -22,15 +18,9 @@
           <p>Цена: {{ product.price }} грн.</p>
           <p>Описание: {{ product.description }}</p>
           <hr>
-<<<<<<< HEAD
           <a href="{% url 'add_to_basket' ct_model=product.get_model_name slug=product.slug %}"> <button class="btn btn-primary">Добавить в корзину</button></a>
         <p class="mt-4">Характеристики: </p>
           {{ product|product_characteristic }}
-=======
-          <a href="{% url 'add_to_basket' ct_model=ct_model slug=product.slug %}"> <button class="btn btn-primary">Добавить в корзину</button></a>
-          <p>Характеристики: </p>
-      {{ product|product_characteristic }}
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
 
       </div>
       </div>
