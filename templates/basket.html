@@ -26,14 +26,12 @@
   <tbody>
   {% for item in basket.products.all %}
     <tr>
-<<<<<<< HEAD
-      <th scope="row">{{ item.product.name_product }}</th>
-      <td class="w-25"><img src="{{ item.product.image_product.url }}" class="img-fluid"></td>
-=======
       <th scope="row">{{ item.cont_object.name_product }}</th>
-      <td class="w-25"><img src="{{ item.cont_object.image_product.url }}" class="img-fluid"></td>
->>>>>>> 5e2533450e3c3d811c2029e05abd0614cb263735
-      <td>{{ item.cont_object.price }} грн.</td>
+        <td class="w-25"><img src="{{ item.cont_object.image_product.url }}" class="img-fluid"></td>
+
+<td>{{ item.cont_object.price }} грн.</td>
+
+
       <td>
           <form action="{% url 'change_quant' ct_model=item.cont_object.get_model_name slug=item.cont_object.slug %}" method="post">
               {% csrf_token %}

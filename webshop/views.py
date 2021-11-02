@@ -64,7 +64,6 @@ class CategoryDetail(CartMix, CategoryMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['basket'] = self.basket
-        print(context)
         return context
 
 
@@ -172,7 +171,7 @@ class MakeOrder(CartMix, View):
 class LoginView(CartMix, View):
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
-        categories = Category.objects.all()
+        categories = Category.objects.get_category_for_navbar()
         context = {'form': form, 'categories': categories, 'basket': self.basket}
         return render(request, 'authorization.html', context)
 
@@ -191,7 +190,7 @@ class LoginView(CartMix, View):
 class RegistrationView(CartMix, View):
     def get(self, request, *args, **kwargs):
         form = Registration(request.POST or None)
-        categories = Category.objects.all()
+        categories = Category.objects.get_category_for_navbar()
         context = {'form':form, 'categories': categories, 'basket': self.basket}
         return render(request, 'registration.html', context)
 
@@ -214,7 +213,7 @@ class RegistrationView(CartMix, View):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'] )
             login(request, user)
             return HttpResponseRedirect('/')
-        context = {'form':form, 'basket': self.basket}
+        context = {'form': form, 'basket': self.basket}
         return render(request, 'registration.html', context)
 
 

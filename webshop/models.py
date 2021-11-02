@@ -46,7 +46,7 @@ class ManagerCategory(models.Manager):
         count_model = get_count_model('notebook', 'smartphone')
         query_set = list(self.get_query_set().annotate(*count_model))
         info = [
-            dict(name=c.name_category, url=c.get_absolute_url(),
+            dict(name=c.name_category, url=c.get_absolute_url(), image=c.image,
                  count=getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
         ]
         return info
@@ -54,6 +54,7 @@ class ManagerCategory(models.Manager):
 
 class Category(models.Model):
     name_category = models.CharField(max_length=255, verbose_name='Название катеории')
+    image = models.ImageField(verbose_name='Изображение категории', default='media/not.jpg')
     slug = models.SlugField(unique=True)
     objects = ManagerCategory()
 
