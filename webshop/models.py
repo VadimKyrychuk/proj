@@ -72,7 +72,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE)
     name_product = models.CharField(max_length=255, verbose_name='Название товара')
     slug = models.SlugField(unique=True)
-    image_product = models.ImageField(verbose_name='Изображение')
+    image_product = models.ImageField(verbose_name='Изображение', upload_to=f'media/{name_product}')
     description = models.TextField(verbose_name='Описание', null=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Цена')
 
