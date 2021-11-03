@@ -1,28 +1,99 @@
 {% extends 'base.html' %}
-{% load characteristic %}
-  {% block content %}
-<nav aria-label="breadcrumb" class="mt-3">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
-    <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name_category }}</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ product.name_product }}</li>
-  </ol>
-</nav>
-      <div class="row">
+{% load static %}
+{% block content %}
+		<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+                            <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name_category }}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ product.name_product }}</li>
 
-      <div class="col-md-4">
-          <img src="{{ product.image_product.url }}" class="img-fluid">
-      </div>
-      <div class="col-md-8">
-          <h3>{{ product.name_product }}</h3>
-          <p>Цена: {{ product.price }} грн.</p>
-          <p>Описание: {{ product.description }}</p>
-          <hr>
-          <a href="{% url 'add_to_basket' ct_model=product.get_model_name slug=product.slug %}"> <button class="btn btn-primary">Добавить в корзину</button></a>
-        <p class="mt-4">Характеристики: </p>
-          {{ product|product_characteristic }}
+						</ul>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
 
-      </div>
-      </div>
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="./img/product01.png" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product main img -->
 
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="./img/product01.png" alt="">
+							</div>
+					</div>
+					<!-- /Product thumb imgs -->
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name">product name goes here</h2>
+							<div>
+								<h3 class="product-price">$980.00</h3>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<ul class="product-links">
+								<li>Category:</li>
+								<li><a href="#">Headphones</a></li>
+								<li><a href="#">Accessories</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /Product details -->
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+							<ul class="tab-nav">
+								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+							</ul>
+							<!-- /product tab nav -->
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab1  -->
+									</div>
+								</div>
+								<!-- /tab3  -->
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
 {% endblock %}
