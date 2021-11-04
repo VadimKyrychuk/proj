@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -43,7 +44,7 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
     template_name = 'product.html'
     slug_url_kwarg = 'slug'
 
-    def get_context_data(self ,**kwargs):
+    def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['ct_model'] = self.model._meta.model_name
         context['basket'] = self.basket
@@ -55,16 +56,18 @@ class CategoryDetail(CartMix, CategoryMixin, DetailView, ListView):
     context_object_name = 'category'
     template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
-    paginate_by = 1
-
-    def get_queryset(self):
-        self.object_list = Category.objects.all()
-        return self.object_list
+    paginate_by = 2
+    object_list = Category.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['basket'] = self.basket
+        p = Paginator(context['category_prod'], self.paginate_by)
+        context['new'] = p.page(context['page_obj'].number)
+        print(context['category_prod'])
+        print(context['new'])
         return context
+
 
 
 
