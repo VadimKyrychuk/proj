@@ -1,21 +1,17 @@
-from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import render
-from django.views.generic import DetailView, View
-from .models import Notebook, Smartphone, Category, Latest, Customer, BasketProduct, Order
-from .mixins import CategoryMixin, CartMix
-from django.http import HttpResponseRedirect
 from django.contrib import messages
-from .forms import OrderForm, LoginForm, Registration
-from .util import calculated_basket
-from django.db import transaction
 from django.contrib.auth import authenticate, login
-from .models import Notebook, Smartphone, Category, Latest, Customer, Basket, BasketProduct
-from .mixins import CategoryMixin, CartMix
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-from .forms import OrderForm
-from .util import calculated_basket
+from django.contrib.contenttypes.models import ContentType
 from django.db import transaction
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.views.generic import DetailView, View, ListView
+
+from .forms import LoginForm, Registration
+from .forms import OrderForm
+from .mixins import CategoryMixin, CartMix
+from .models import Notebook, Smartphone, Category, Latest, Customer, BasketProduct, Product
+from .models import Order
+from .util import calculated_basket
 
 
 class MainView(CartMix, View):
@@ -47,24 +43,29 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
     template_name = 'product.html'
     slug_url_kwarg = 'slug'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self ,**kwargs):
         context = super().get_context_data(**kwargs)
         context['ct_model'] = self.model._meta.model_name
         context['basket'] = self.basket
         return context
 
 
-class CategoryDetail(CartMix, CategoryMixin, DetailView):
+class CategoryDetail(CartMix, CategoryMixin, DetailView, ListView):
     model = Category
-    queryset = Category.objects.all()
     context_object_name = 'category'
     template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
+    paginate_by = 1
+
+    def get_queryset(self):
+        self.object_list = Category.objects.all()
+        return self.object_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['basket'] = self.basket
         return context
+
 
 
 class AddToBasket(CartMix, View):

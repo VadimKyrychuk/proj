@@ -2,6 +2,7 @@ from django.views.generic.detail import SingleObjectMixin
 from .models import Category
 from django.views.generic import View
 from .models import Basket, Customer, Notebook, Smartphone
+from django.core.paginator import Paginator
 
 class CategoryMixin(SingleObjectMixin):
 
@@ -20,6 +21,7 @@ class CategoryMixin(SingleObjectMixin):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.get_category_for_navbar()
         return context
+
 
 
 class CartMix(View):

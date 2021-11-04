@@ -9,10 +9,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li class="active">Headphones (227,490 Results)</li>
+							<li><a href="{% url 'base' %}">Главная</a></li>
+							<li><a href="{{ category.url }}">{{ category.name_category}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -33,26 +31,33 @@
 						<!-- store products -->
 						<div class="row">
 							<!-- product -->
+                            {% for product in category_prod %}
 							<div class="col-md-4 col-xs-6">
 								<div class="product">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
+									<div class="product-img" style="    width: 100%;
+    height: 100%;
+    overflow: hidden; display: flex; justify-content: center">
+										<img style="    width: 230px;
+    height: 220px;
+    object-fit: contain;" src="{{ product.image_product.url }}" alt="">
 									</div>
 									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00</h4>
+										<p class="product-category">{{ product }}</p>
+										<h3 class="product-name"><a href="#">{{ product.name_product|truncatechars:30}}</a></h3>
+										<h4 class="product-price">{{ product.price }} грн.</h4>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> В корзинку</button>
 									</div>
 								</div>
 							</div>
+                            {% endfor %}
 							<!-- /product -->
 						</div>
 						<!-- /store products -->
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
+                            <div class="container" style="display: flex;justify-content: center">
 							<ul class="store-pagination">
 								<li class="active">1</li>
 								<li><a href="#">2</a></li>
@@ -60,6 +65,7 @@
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
 							</ul>
+                                </div>
 						</div>
 						<!-- /store bottom filter -->
 					</div>

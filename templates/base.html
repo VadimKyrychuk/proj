@@ -38,7 +38,6 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="{% url 'base' %}">Главная</a></li>
-
                         {% for category in categories %}
 						<li {% if request.get_full_path == category.url %} class="active" {% endif %}><a href="{{ category.url }}">{{ category.name }}</a></li>
                         {% endfor %}
