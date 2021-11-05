@@ -1,0 +1,27 @@
+{% load bootstrap_icons %}
+<div class="store-filter clearfix">
+    <div class="container" style="display: flex;justify-content: center">
+        {% if new.has_other_pages %}
+            <ul class="store-pagination">
+                {% if new.has_previous %}
+                    <li class="page-item"><a
+                            href="?page={{ new.previous_page_number }}">{% bs_icon 'chevron-left' %}</a></li>
+                {% endif %}
+                {% for num in new.paginator.page_range %}
+                    <li class="page-item {% if request.GET.page == num|stringformat:'i' %} active {% endif %}">
+                        {% if num >= new.number|add:-2 and num <= new.number|add:2 %}
+                            <a class="page-link" style="border-radius: 9px"
+                               href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                {% if new.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ new.next_page_number }}">{% bs_icon 'chevron-right' %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+</div>

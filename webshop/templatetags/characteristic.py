@@ -56,10 +56,10 @@ def product_characteristic(product):
     return mark_safe(TABLE_HEAD + get_prod_characteristic(product, model_name) + TABLE_BOTTOM)
 
 
+
 def get_prod_characteristic(product, model_name):
     table_content = ''
     for name, value in PRODUCT_CHARACTERISTIC[model_name].items():
-        print(value)
-        if isinstance(product, Smartphone):
             table_content += TABLE_MAIN_CONTENT.format(name=name, value=getattr(product, value))
+    print(table_content)
     return table_content

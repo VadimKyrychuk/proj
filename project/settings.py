@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webshop.apps.WebshopConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'django_bootstrap_icons'
 ]
 
 MIDDLEWARE = [
