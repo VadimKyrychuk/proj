@@ -4,6 +4,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', MainView.as_view(), name='base'),
+    path('search', SearchProd.as_view(), name='search'),
     path('products/<str:ct_model>/<str:slug>/', ProductDetail.as_view(), name='product_details'),
     path('category/<str:slug>/', CategoryDetail.as_view(), name='category_details'),
     path('basket/',  BasketView.as_view(), name='basket'),

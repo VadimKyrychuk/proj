@@ -32,6 +32,20 @@ class LatestManager:
 class Latest:
     objects = LatestManager()
 
+class SearchProd:
+    @staticmethod
+    def search_prod(*args, search):
+        products = []
+        cnt_models = ContentType.objects.filter(model__in=args)
+        for cnt_model in cnt_models:
+            product_for_search = cnt_model.model_class()._base_manager.all()
+            for pr in product_for_search:
+                if search.lower() in pr.name_product.lower():
+                    products.append(pr)
+        return products
+
+class Search:
+    objects = SearchProd()
 
 class ManagerCategory(models.Manager):
     CATEGORY_COUNT_NAME = {

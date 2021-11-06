@@ -10,7 +10,7 @@ from django.views.generic import DetailView, View, ListView
 from .forms import LoginForm, Registration
 from .forms import OrderForm
 from .mixins import CategoryMixin, CartMix
-from .models import Notebook, Smartphone, Category, Latest, Customer, BasketProduct, Product
+from .models import Notebook, Smartphone, Category,Latest , Customer, BasketProduct, Product, Search
 from .models import Order
 from .util import calculated_basket
 
@@ -18,7 +18,6 @@ from .util import calculated_basket
 class MainView(CartMix, View):
 
     def get(self, request, *args, **kwargs):
-
         category_for_navbar = Category.objects.get_category_for_navbar()
         products = Latest.objects.get_product_models('notebook', 'smartphone')
         content = {
@@ -27,6 +26,18 @@ class MainView(CartMix, View):
             'basket': self.basket
         }
         return render(request, 'base.html', content)
+
+class SearchProd(CartMix, View):
+    def get(self, request):
+        search_query = request.GET.get('search_query' or None)
+        category_for_navbar = Category.objects.get_category_for_navbar()
+        products = Search.objects.search_prod('notebook', 'smartphone', search=search_query)
+        content = {
+            'categories': category_for_navbar,
+            'products': products,
+            'basket': self.basket
+        }
+        return render(request, 'search.html', content)
 
 
 class ProductDetail(CartMix, CategoryMixin, DetailView):

@@ -5,9 +5,9 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left" style="color: white">
-                <li><i class="fa fa-phone"></i> +380969297248</a></li>
-                <li><i class="fa fa-envelope-o"></i>vadkirichuk@gmail.com</a></li>
-                <li><i class="fa fa-map-marker"></i>ул.Кулика 123</a></li>
+                <li><i class="fa fa-phone"></i> +380969297248</li>
+                <li><i class="fa fa-envelope-o"></i>vadkirichuk@gmail.com</li>
+                <li><i class="fa fa-map-marker"></i>ул.Кулика 123</li>
             </ul>
             <ul class="header-links pull-right">
                 <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
@@ -42,8 +42,8 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <input class="input" placeholder="Search here">
+                        <form action="{% url 'search' %}">
+                            <input class="input" placeholder="Search here" name="search_query">
                             <button class="search-btn">Поиск</button>
                         </form>
                     </div>
