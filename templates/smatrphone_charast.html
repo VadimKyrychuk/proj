@@ -1,57 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load i18n %}
 <table class="table">
   <tbody>
   <tr>
-      <td>Бренд: </td>
+      <td>{% trans 'Бренд': %} </td>
       <td>{{ product.brand }}</td>
     </tr>
   <tr>
-      <td>Модель смартфона: </td>
+      <td>{% trans 'Модель смартфона': %} </td>
       <td>{{ product.model_smart }}</td>
     </tr>
       <tr>
-      <td>Диагональ: </td>
+      <td>{% trans 'Диагональ': %} </td>
       <td>{{ product.diagonal }}</td>
     </tr>
   <tr>
-      <td>Дисплей: </td>
+      <td>{% trans 'Дисплей': %} </td>
       <td>{{ product.display }}</td>
     </tr>
   <tr>
-      <td>Разрешение экрана: </td>
+      <td>{% trans 'Разрешение экрана': %} </td>
       <td>{{ product.resolution }}</td>
     </tr>
   <tr>
-      <td>Объем аккумулятора: </td>
+      <td>{% trans 'Объем аккумулятора': %} </td>
       <td>{{ product.accum }}</td>
     </tr>
   <tr>
-      <td>Оперативная память: </td>
+      <td>{% trans 'Оперативная память': %} </td>
       <td>{{ product.ram }}</td>
     </tr>
 <tr>
-      <td> Возможность использования SD: </td>
+      <td> {% trans 'Возможность использования SD': %} </td>
       <td>{{ product.sd_card }}</td>
     </tr>
   <tr>
-      <td> Максимальный объем SD: </td>
+      <td> {% trans 'Максимальный объем SD': %} </td>
       <td>{{ product.sd_card_max_size }}</td>
     </tr>
   <tr>
-      <td> Главная камера: </td>
+      <td>{% trans 'Главная камера': %}  </td>
       <td>{{ product.main_cam }}</td>
     </tr>
   <tr>
-      <td> Фронтальная камера: </td>
+      <td> {% trans 'Фронтальная камера': %} </td>
       <td>{{ product.front_cam }}</td>
     </tr>
   </tbody>
 </table>
-</body>
-</html>

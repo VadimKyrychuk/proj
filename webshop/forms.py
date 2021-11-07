@@ -1,13 +1,14 @@
 from .models import Order
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 
 class OrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
-        self.fields['order_date'].label = 'Дата получения заказа'
+        self.fields['order_date'].label = _('Дата получения заказа')
 
     order_date = forms.DateField(widget=forms.TextInput(attrs={'type':'date'}))
     class Meta:
@@ -25,19 +26,19 @@ class LoginForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Логин'
-        self.fields['password'].label = 'Пароль'
+        self.fields['username'].label = _('Логин')
+        self.fields['password'].label = _('Пароль')
 
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
 
         if not User.objects.filter(username=username).exists():
-            raise forms.ValidationError(f'Пользователь с логином {username} не найден')
+            raise forms.ValidationError (_('Пользователь с логином ') +  username + _(' не найден'))
         user = User.objects.filter(username=username).first()
         if user:
             if not user.check_password(password):
-                raise forms.ValidationError('Неверный пароль')
+                raise forms.ValidationError(_('Неверный пароль'))
         return self.cleaned_data
 
 class Registration(forms.ModelForm):
@@ -55,26 +56,26 @@ class Registration(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].label = 'Логин'
-        self.fields['password'].label = 'Пароль'
+        self.fields['username'].label = _('Логин')
+        self.fields['password'].label = _('Пароль')
 
-        self.fields['confirm_password'].label = 'Подтвердите пароль'
-        self.fields['first_name'].label = 'Имя'
-        self.fields['last_name'].label = 'Фамилия'
-        self.fields['phone'].label = 'Номер телефона'
-        self.fields['adress'].label = 'Адресс'
-        self.fields['email'].label = 'Ел. почта'
+        self.fields['confirm_password'].label = _('Подтвердите пароль')
+        self.fields['first_name'].label = _('Имя')
+        self.fields['last_name'].label = _('Фамилия')
+        self.fields['phone'].label = _('Номер телефона')
+        self.fields['adress'].label = _('Адресс')
+        self.fields['email'].label = _('Ел. почта')
 
     def clean_email(self):
         email = self.cleaned_data['email']
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Почтовый адрес уже испоользуется')
+            raise forms.ValidationError(_('Почтовый адрес уже испоользуется'))
         return email
 
     def clean_username(self):
         username = self.cleaned_data['username']
         if User.objects.filter(username=username).exists():
-            raise forms.ValidationError('Данный логин уже используется')
+            raise forms.ValidationError(_('Данный логин уже используется'))
         return username
 
     def clean(self):
@@ -82,5 +83,5 @@ class Registration(forms.ModelForm):
         confirm_password = self.cleaned_data['confirm_password']
 
         if password != confirm_password:
-            raise forms.ValidationError('Пароли не совпадают')
+            raise forms.ValidationError(_('Пароли не совпадают'))
         return self.cleaned_data

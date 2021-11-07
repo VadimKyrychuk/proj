@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load characteristic %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 		<!-- BREADCRUMB -->
@@ -10,7 +11,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+							<li class="breadcrumb-item"><a href="{% url 'base' %}">{% trans 'Главная' %}</a></li>
                             <li class="breadcrumb-item"><a href="{{ product.category.get_absolute_url }}">{{ product.category.name_category }}</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{{ product.name_product }}</li>
 
@@ -49,49 +50,21 @@
                                     <h3 class="product-price">{{product.price}} грн.</h3>
                                 </div>
                                 <div class="col-md-6">
-                                    <a  href="{% url 'add_to_basket' ct_model=ct_model slug=product.slug %}"> <button style="margin-top: 2px;margin-bottom: 15px" class="btn btn-primary">Добавить в корзину</button></a>
+                                    <a  href="{% url 'add_to_basket' ct_model=ct_model slug=product.slug %}"> <button style="margin-top: 2px;margin-bottom: 15px" class="btn btn-primary">{% trans 'Добавить в корзину' %}</button></a>
                                 </div>
 
 
 							</div>
 							<p>{{ product.description }}</p>
 							<ul class="product-links">
-								<li>Категория:</li>
+								<li>{% trans 'Категория' %}:</li>
 								<li><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></li>
 							</ul>
                             <br>
-                            <h4>Характеристики:</h4>
+                            <h4>{% trans 'Характеристики' %}:</h4>
                             {{ product|product_characteristic }}
 						</div>
 					</div>
-					<!-- /Product details -->
-					<!-- Product tab -->
-					<div class="col-md-12">
-						<div id="product-tab">
-							<!-- product tab nav -->
-							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-							</ul>
-							<!-- /product tab nav -->
-							<!-- product tab content -->
-							<div class="tab-content">
-								<!-- tab1  -->
-								<div id="tab1" class="tab-pane fade in active">
-									<div class="row">
-										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-										</div>
-									</div>
-								</div>
-								<!-- /tab1  -->
-									</div>
-								</div>
-								<!-- /tab3  -->
-							</div>
-							<!-- /product tab content  -->
-						</div>
-					</div>
-					<!-- /product tab -->
 				</div>
 				<!-- /row -->
 			</div>

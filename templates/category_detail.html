@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons  %}
+{% load i18n %}
 {% load static %}
 {% block content %}
     <!-- BREADCRUMB -->
@@ -10,7 +11,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="breadcrumb-tree">
-                        <li><a href="{% url 'base' %}">Главная</a></li>
+                        <li><a href="{% url 'base' %}">{% trans 'Главная' %}</a></li>
                         <li><a href="{{ category.url }}">{{ category.name_category }}</a></li>
                     </ul>
                 </div>
@@ -56,7 +57,7 @@
                                         <h4 class="product-price">{{ product.price }} грн.</h4>
                                     </div>
                                     <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> В корзинку
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
                                         </button>
                                     </div>
                                 </div>

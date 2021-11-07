@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons  %}
+{% load i18n %}
 {% load static %}
 {% block content %}
     <!-- SECTION -->
@@ -37,7 +38,7 @@
                                         <h4 class="product-price">{{ product.price }} грн.</h4>
                                     </div>
                                     <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> В корзину
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
                                         </button>
                                     </div>
                                 </div>

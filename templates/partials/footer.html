@@ -1,3 +1,4 @@
+	{% load i18n %}
 		<!-- FOOTER -->
 		<footer id="footer">
 			<!-- top footer -->
@@ -8,7 +9,7 @@
 					<div class="row" style="display: flex;justify-content: center">
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">О нас</h3>
+								<h3 class="footer-title">{% trans "О нас" %}</h3>
 								<ul class="footer-links">
 									<li><i class="fa fa-map-marker"></i>ул. Кулика 123</li>
 									<li><i class="fa fa-phone"></i>+380969297248</li>
@@ -19,7 +20,7 @@
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Категории</h3>
+								<h3 class="footer-title">{% trans "Категории" %}</h3>
 								<ul class="footer-links">
                                     {% for category in categories %}
 									<li><a href="{{category.url}}">{{ category.name}}</a></li>
@@ -32,14 +33,14 @@
 
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">Сервис</h3>
+								<h3 class="footer-title">{%  trans "Сервис" %}</h3>
 								<ul class="footer-links">
                                     {% if request.user.is_authenticated %}
-									<li><a href="{% url 'profile' %}">Мои заказы</a></li>
-									<li><a href="{% url 'logout' %}">Выйти</a></li>
+									<li><a href="{% url 'profile' %}">{% trans "Мои заказы" %}</a></li>
+									<li><a href="{% url 'logout' %}">{% trans "Выйти" %}</a></li>
                                         {% else %}
-                                        <li><a href="{% url 'login' %}">Войти</a></li>
-                                        <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                                        <li><a href="{% url 'login' %}">{% trans "Войти" %}</a></li>
+                                        <li><a href="{% url 'registration' %}">{% trans "Регистрация" %}</a></li>
 
                                     {% endif %}
 

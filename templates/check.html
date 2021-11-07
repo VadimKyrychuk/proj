@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 {% block content %}
     <br>
-    <h3 class="text-center mt-5 mb-5"> Оформление заказа</h3>
+    <h3 class="text-center mt-5 mb-5">{% trans 'Оформление заказа' %} </h3>
     <hr>
 
     <div class="container">
@@ -12,10 +12,10 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Наименование</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Количество</th>
-                        <th scope="col">Общая сумма</th>
+                        <th scope="col">{% trans 'Наименование' %}</th>
+                        <th scope="col">{% trans 'Цена' %}</th>
+                        <th scope="col">{% trans 'Количество' %}</th>
+                        <th scope="col">{% trans 'Общая сумма' %}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,7 @@
                     {% endfor %}
                     <tr>
                         <td colspan="1"></td>
-                        <td>Итого:</td>
+                        <td>{% trans Итого %}:</td>
                         <td> {{ basket.total_products }}</td>
                         <td> {{ basket.total_price }} грн.</td>
                     </tr>
@@ -37,11 +37,11 @@
                 </table>
             </div>
             <div class="col-md-offset-1">
-                <h3 class="text-center mt-5 mb-5"> Форма заказа</h3>
+                <h3 class="text-center mt-5 mb-5">{% trans 'Форма заказа' %} </h3>
                 <form action="{% url 'make_order' %}" method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input type="submit" class="btn btn-primary btn-block mt-3 mb-3" values="Оформить заказ"
+                    <input type="submit" class="btn btn-primary btn-block mt-3 mb-3" values="{% trans 'Оформить заказ' %}"
                            style="width: 100%">
 
                 </form>

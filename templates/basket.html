@@ -1,57 +1,65 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% static 'bootstrap.min.css' %}
 {% block content %}
-<h3 class="text-center mt-5 mb-5"> Ваша корзина {% if not basket.products.count %}пуста{% endif %}</h3>
+    <h3 class="text-center mt-5 mb-5">{% trans 'Ваша корзина' %}
+        {% if not basket.products.count %}{% trans 'пуста' %}{% endif %}</h3>
 
     <div class="container">
-    {% if basket.products.count %}
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Наименование</th>
-      <th scope="col">Изоражение</th>
-      <th scope="col">Цена</th>
-      <th scope="col">Количество</th>
-      <th scope="col">Общая сумма</th>
-        <th scope="col">Действие</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for item in basket.products.all %}
-    <tr>
-      <th scope="row">{{ item.cont_object.name_product }}</th>
-        <td class="w-25"><img style="width: 250px; height: 200px;object-fit: contain" src="{{ item.cont_object.image_product.url }}" class="img-fluid"></td>
+        {% if basket.products.count %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">{% trans 'Наименование' %}</th>
+                    <th scope="col">{% trans 'Изоражение' %}</th>
+                    <th scope="col">{% trans 'Цена' %}</th>
+                    <th scope="col">{% trans 'Количество' %}</th>
+                    <th scope="col">{% trans 'Общая сумма' %}</th>
+                    <th scope="col">{% trans 'Действие' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in basket.products.all %}
+                    <tr>
+                        <th scope="row">{{ item.cont_object.name_product }}</th>
+                        <td class="w-25">
+                            <img style="width: 250px; height: 200px;object-fit: contain"
+                                 src="{{ item.cont_object.image_product.url }}" class="img-fluid"></td>
 
-<td>{{ item.cont_object.price }} грн.</td>
+                        <td>{{ item.cont_object.price }} грн.</td>
 
 
-      <td>
-          <form action="{% url 'change_quant' ct_model=item.cont_object.get_model_name slug=item.cont_object.slug %}" method="post">
-              {% csrf_token %}
-              <input type="number" class="form-control" name="quant" style="width: 70px" min="1" value="{{ item.quantity }}">
-              <br>
-              <input type="submit" class="btn btn-primary" value="Изменить">
-          </form>
-      </td>
-      <td>{{ item.total_price }}</td>
-        <td>
-            <a href="{% url 'delete_from_basket' ct_model=item.cont_object.get_model_name slug=item.cont_object.slug %}">
-                <button class="btn btn-danger">Удалить из корзины</button>
-            </a>
-        </td>
-    </tr>
-  {% endfor %}
-  <tr>
-      <td colspan="2"></td>
-      <td>Итого:</td>
-      <td> {{ basket.total_products }}</td>
-      <td> {{ basket.total_price }} грн.</td>
-      <td><a href="{% url 'check' %}"> <button class="btn btn-primary">Оформить</button></a></td>
-  </tr>
-  </tbody>
-</table>
-{% endif %}
+                        <td>
+                            <form action="{% url 'change_quant' ct_model=item.cont_object.get_model_name slug=item.cont_object.slug %}"
+                                  method="post">
+                                {% csrf_token %}
+                                <input type="number" class="form-control" name="quant" style="width: 70px" min="1"
+                                       value="{{ item.quantity }}">
+                                <br>
+                                <input type="submit" class="btn btn-primary" value="{% trans 'Изменить' %}">
+                            </form>
+                        </td>
+                        <td>{{ item.total_price }}</td>
+                        <td>
+                            <a href="{% url 'delete_from_basket' ct_model=item.cont_object.get_model_name slug=item.cont_object.slug %}">
+                                <button class="btn btn-danger">{% trans 'Удалить из корзины' %}</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2"></td>
+                    <td>{% trans Итого %}:</td>
+                    <td> {{ basket.total_products }}</td>
+                    <td> {{ basket.total_price }} грн.</td>
+                    <td><a href="{% url 'check' %}">
+                        <button class="btn btn-primary">{% trans 'Оформить' %}</button>
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 
 

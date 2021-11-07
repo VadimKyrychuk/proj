@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!-- HEADER -->
 <header>
     <!-- TOP HEADER -->
@@ -10,13 +11,24 @@
                 <li><i class="fa fa-map-marker"></i>ул.Кулика 123</li>
             </ul>
             <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+                <form action="{% url 'set_language' %}" method="post" style="display: flex">
+                {% csrf_token %}
+                {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+     <ul>
+         {% for language in languages %}
+             <li> <a href="/{{ language.code }}{{ request.get_full_path|slice:'3:' }}"
+                     class="{% if language.code == LANGUAGE_CODE %}selected{% endif %}"
+                     lang="{{ language.code }}"> {{ language.name_local }} </a>
+             </li> {% endfor %} </ul>
+            </form>
                 {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'profile' %}">Мои заказы</a></li>
-                    <li><a href="{% url 'logout' %}"></i>Выйти</a></li>
+                    <li><a href="{% url 'profile' %}">{% trans "Мои заказы" %}</a></li>
+                    <li><a href="{% url 'logout' %}"></i>{% trans "Выйти" %}</a></li>
                 {% else %}
-                <li><a class="dropdown-item" href="{% url 'login' %}">Войти</a></li>
-                <li><a class="dropdown-item" href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a class="dropdown-item" href="{% url 'login' %}">{% trans "Войти" %}</a></li>
+                <li><a class="dropdown-item" href="{% url 'registration' %}">{% trans 'Регистрация' %}</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -32,7 +44,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="{% url 'base' %}" class="logo">
                             <h2 style="color: white; margin-top: 17px">Techno_Shop<span style="color: red">.</span></h2>
                         </a>
                     </div>
@@ -43,8 +55,8 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form action="{% url 'search' %}">
-                            <input class="input" placeholder="Search here" name="search_query">
-                            <button class="search-btn">Поиск</button>
+                            <input class="input" placeholder="{% trans 'Поиск' %}" name="search_query">
+                            <button class="search-btn">{% trans 'Поиск' %}</button>
                         </form>
                     </div>
                 </div>
@@ -57,7 +69,7 @@
                         <form class="d-flex">
                             <button class="btn btn-outline-light" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
-                                <a href="{% url 'basket' %}">Корзина</a>
+                                <a href="{% url 'basket' %}">{% trans 'Корзина' %}</a>
                                 <span class="badge bg-light text-dark ms-1 rounded-pill">{{ basket.products.count }}</span>
                             </button>
                         </form>

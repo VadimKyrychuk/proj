@@ -1,6 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
 from webshop.models import Smartphone
+from django.utils.translation import ugettext_lazy as _
 
 register = template.Library()
 
@@ -23,24 +24,24 @@ TABLE_MAIN_CONTENT = """
 
 PRODUCT_CHARACTERISTIC = {
     'notebook': {
-        'Бренд': 'brand',
-        'Диагональ': 'diagonal',
-        'Дисплей': 'display',
-        'Процессор': 'cpu',
-        'Оперативная память': 'ram',
-        'Видеокарта': 'video'},
+        _('Бренд'): 'brand',
+        _('Диагональ'): 'diagonal',
+        _('Дисплей'): 'display',
+        _('Процессор'): 'cpu',
+        _('Оперативная память'): 'ram',
+        _('Видеокарта'): 'video'},
 
     'smartphone': {
-        'Бренд': 'brand',
-        'Модель смартфона': 'model_smart',
-        'Диаональ': 'diagonal',
-        'Разрешение экрана': 'resolution',
-        'Объем аккумулятора': 'accum',
-        'Оперативная память': 'ram',
-        'Возможность использования SD': 'sd_card',
-        'Максимальный объем SD': 'sd_card_max_size',
-        'Главная камера': 'main_cam',
-        'Фронтальная камера': 'front_cam',
+        _('Бренд'): 'brand',
+        _('Модель смартфона'): 'model_smart',
+        _('Диагональ'): 'diagonal',
+        _('Разрешение экрана'): 'resolution',
+        _('Объем аккумулятора'): 'accum',
+        _('Оперативная память'): 'ram',
+        _('Возможность использования SD'): 'sd_card',
+        _('Максимальный объем SD'): 'sd_card_max_size',
+        _('Главная камера'): 'main_cam',
+        _('Фронтальная камера'): 'front_cam',
     }
 }
 

@@ -1,0 +1,444 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-07 18:58+0200\n"
+"PO-Revision-Date: 2021-11-07 18:56+0000\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Translated-Using: django-rosetta 0.9.7\n"
+
+#: .\project\settings.py:121
+msgid "Russia"
+msgstr ""
+
+#: .\project\settings.py:122
+msgid "Ukrainian"
+msgstr ""
+
+#: .\templates\authorization.html:7
+msgid "Авторизация"
+msgstr "Авторизація"
+
+#: .\templates\authorization.html:11 .\templates\partials\footer.html:42
+#: .\templates\partials\header.html:30
+msgid "Войти"
+msgstr "Увійти"
+
+#: .\templates\base.html:76
+msgid "Товары"
+msgstr "Товари"
+
+#: .\templates\base.html:106 .\templates\category_detail.html:60
+#: .\templates\search.html:41
+msgid "В корзину"
+msgstr "В кошик"
+
+#: .\templates\basket.html:6
+msgid "Ваша корзина"
+msgstr "Ваш кошик"
+
+#: .\templates\basket.html:7
+msgid "пуста"
+msgstr "порожній"
+
+#: .\templates\basket.html:14 .\templates\check.html:15
+#: .\templates\profile.html:54
+msgid "Наименование"
+msgstr "Назва"
+
+#: .\templates\basket.html:15
+msgid "Изоражение"
+msgstr "Зображення"
+
+#: .\templates\basket.html:16 .\templates\check.html:16
+#: .\templates\profile.html:56
+msgid "Цена"
+msgstr "Ціна"
+
+#: .\templates\basket.html:17 .\templates\check.html:17
+#: .\templates\profile.html:57
+msgid "Количество"
+msgstr "Кількість"
+
+#: .\templates\basket.html:18 .\templates\check.html:18
+#: .\templates\profile.html:58
+msgid "Общая сумма"
+msgstr "Загальна вартість"
+
+#: .\templates\basket.html:19
+msgid "Действие"
+msgstr "Дія"
+
+#: .\templates\basket.html:40
+msgid "Изменить"
+msgstr "Змінити"
+
+#: .\templates\basket.html:46
+msgid "Удалить из корзины"
+msgstr "Видалити з кошика"
+
+#: .\templates\basket.html:57
+msgid "Оформить"
+msgstr "Оформити"
+
+#: .\templates\category_detail.html:14 .\templates\partials\navgation.html:9
+#: .\templates\product.html:14
+msgid "Главная"
+msgstr "Головна"
+
+#: .\templates\check.html:6
+msgid "Оформление заказа"
+msgstr "Оформлення замовлення"
+
+#: .\templates\check.html:40
+msgid "Форма заказа"
+msgstr "Форма замовлення"
+
+#: .\templates\check.html:44
+msgid "Оформить заказ"
+msgstr "Оформити замовлення"
+
+#: .\templates\notebook_charast.html:5 .\templates\smatrphone_charast.html:5
+#: .\webshop\templatetags\characteristic.py:27
+#: .\webshop\templatetags\characteristic.py:35
+msgid "Бренд"
+msgstr "Бренд"
+
+#: .\templates\notebook_charast.html:9 .\templates\smatrphone_charast.html:13
+#: .\webshop\models.py:124 .\webshop\templatetags\characteristic.py:28
+#: .\webshop\templatetags\characteristic.py:37
+msgid "Диагональ"
+msgstr "Діагональ"
+
+#: .\templates\notebook_charast.html:14 .\templates\smatrphone_charast.html:17
+#: .\webshop\templatetags\characteristic.py:29
+msgid "Дисплей"
+msgstr "Дисплей"
+
+#: .\templates\notebook_charast.html:18
+#: .\webshop\templatetags\characteristic.py:30
+msgid "Процессор"
+msgstr "Процесор"
+
+#: .\templates\notebook_charast.html:22 .\templates\smatrphone_charast.html:29
+#: .\webshop\models.py:128 .\webshop\templatetags\characteristic.py:31
+#: .\webshop\templatetags\characteristic.py:40
+msgid "Оперативная память"
+msgstr "Оперативна пам'ять"
+
+#: .\templates\notebook_charast.html:26
+msgid "Видекокарта"
+msgstr "Відеокарта"
+
+#: .\templates\partials\footer.html:12
+msgid "О нас"
+msgstr "Про нас"
+
+#: .\templates\partials\footer.html:23
+msgid "Категории"
+msgstr "Категорії"
+
+#: .\templates\partials\footer.html:36
+msgid "Сервис"
+msgstr "Сервіс"
+
+#: .\templates\partials\footer.html:39 .\templates\partials\header.html:27
+msgid "Мои заказы"
+msgstr "Мої замовлення"
+
+#: .\templates\partials\footer.html:40 .\templates\partials\header.html:28
+msgid "Выйти"
+msgstr "Вихід"
+
+#: .\templates\partials\footer.html:43 .\templates\partials\header.html:31
+#: .\templates\registration.html:7
+msgid "Регистрация"
+msgstr "Реєстрація"
+
+#: .\templates\partials\header.html:58 .\templates\partials\header.html:59
+msgid "Поиск"
+msgstr "Пошук"
+
+#: .\templates\partials\header.html:72 .\webshop\models.py:208
+msgid "Корзина"
+msgstr "Кошик"
+
+#: .\templates\product.html:53
+msgid "Добавить в корзину"
+msgstr "Додати в кошик"
+
+#: .\templates\product.html:60
+msgid "Категория"
+msgstr "Категорія"
+
+#: .\templates\product.html:64
+msgid "Характеристики"
+msgstr "Характеристики"
+
+#: .\templates\product.html:74
+msgid "Description"
+msgstr "Опис"
+
+#: .\templates\product.html:83
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+"eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
+"minimveniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exea "
+"commodo consequat. Duis aute irure dolor in reprehenderit involuptate velit "
+"esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat "
+"cupidatat non proident, sunt in culpa quiofficia deserunt mollit anim id est "
+"laborum."
+msgstr "іва"
+
+#: .\templates\profile.html:7
+msgid "Ваши заказы"
+msgstr "Ваші замовлення"
+
+#: .\templates\profile.html:10
+msgid "У вас еще нет заказов"
+msgstr "У вас ще немає замовлень"
+
+#: .\templates\profile.html:10
+msgid "Сделайте свой первый заказ"
+msgstr "Зробіть своє перше замовлення"
+
+#: .\templates\profile.html:16
+msgid "Номер"
+msgstr "Номер"
+
+#: .\templates\profile.html:17
+msgid "Статус"
+msgstr "Статус"
+
+#: .\templates\profile.html:18
+msgid "Сумма"
+msgstr "Сума"
+
+#: .\templates\profile.html:19 .\templates\profile.html:50
+msgid "Товар"
+msgstr "Товар"
+
+#: .\templates\profile.html:20
+msgid "Дополнительно"
+msgstr "Додатково"
+
+#: .\templates\profile.html:45
+msgid "Детализация"
+msgstr "Детально"
+
+#: .\templates\profile.html:55
+msgid "Изображение"
+msgstr "Зображення"
+
+#: .\templates\profile.html:73
+msgid "Всего"
+msgstr "Всього"
+
+#: .\templates\profile.html:82
+msgid "Закрыть"
+msgstr "Закрити"
+
+#: .\templates\registration.html:11
+msgid "Зарегистрироваться"
+msgstr "Зареєструватися"
+
+#: .\templates\smatrphone_charast.html:9 .\webshop\models.py:123
+#: .\webshop\templatetags\characteristic.py:36
+msgid "Модель смартфона"
+msgstr "Модель смартфону"
+
+#: .\templates\smatrphone_charast.html:21 .\webshop\models.py:126
+#: .\webshop\templatetags\characteristic.py:38
+msgid "Разрешение экрана"
+msgstr "Розширення екрану"
+
+#: .\templates\smatrphone_charast.html:25 .\webshop\models.py:127
+#: .\webshop\templatetags\characteristic.py:39
+msgid "Объем аккумулятора"
+msgstr "Об'єм акумулятора"
+
+#: .\templates\smatrphone_charast.html:33
+#: .\webshop\templatetags\characteristic.py:41
+msgid "Возможность использования SD"
+msgstr "Можливість використання SD"
+
+#: .\templates\smatrphone_charast.html:37 .\webshop\models.py:130
+#: .\webshop\templatetags\characteristic.py:42
+msgid "Максимальный объем SD"
+msgstr "Максимальний об'єм"
+
+#: .\templates\smatrphone_charast.html:41 .\webshop\models.py:131
+#: .\webshop\templatetags\characteristic.py:43
+msgid "Главная камера"
+msgstr "Головна камера"
+
+#: .\templates\smatrphone_charast.html:45 .\webshop\models.py:132
+#: .\webshop\templatetags\characteristic.py:44
+msgid "Фронтальная камера"
+msgstr "Фронтальна камера"
+
+#: .\webshop\forms.py:11 .\webshop\models.py:214
+msgid "Дата получения заказа"
+msgstr "Дата отримання замовлення"
+
+#: .\webshop\forms.py:29 .\webshop\forms.py:59
+msgid "Логин"
+msgstr "Логін"
+
+#: .\webshop\forms.py:30 .\webshop\forms.py:60
+msgid "Пароль"
+msgstr "Пароль"
+
+#: .\webshop\forms.py:37
+msgid "Пользователь с логином"
+msgstr "Користувач з логіном"
+
+#: .\webshop\forms.py:37
+msgid "не найден"
+msgstr "не знайдено"
+
+#: .\webshop\forms.py:41
+msgid "Неверный пароль"
+msgstr "Невірний пароль"
+
+#: .\webshop\forms.py:62
+msgid "Подтвердите пароль"
+msgstr "Підтвердіть пароль"
+
+#: .\webshop\forms.py:63 .\webshop\models.py:205
+msgid "Имя"
+msgstr "Ім'я"
+
+#: .\webshop\forms.py:64 .\webshop\models.py:206
+msgid "Фамилия"
+msgstr "Прізвище"
+
+#: .\webshop\forms.py:65 .\webshop\models.py:207
+msgid "Номер телефона"
+msgstr "Номер телефону"
+
+#: .\webshop\forms.py:66
+msgid "Адресс"
+msgstr "Адреса"
+
+#: .\webshop\forms.py:67
+msgid "Ел. почта"
+msgstr "Ел. пошта"
+
+#: .\webshop\forms.py:72
+msgid "Почтовый адрес уже испоользуется"
+msgstr "Поштова адреса вже використовується"
+
+#: .\webshop\forms.py:78
+msgid "Данный логин уже используется"
+msgstr "Даний логін вже використовується"
+
+#: .\webshop\forms.py:86
+msgid "Пароли не совпадают"
+msgstr "Паролі не співпадають"
+
+#: .\webshop\models.py:54
+#, fuzzy
+msgid "Ноутбуки"
+msgstr "Ноутбуки"
+
+#: .\webshop\models.py:55
+#, fuzzy
+msgid "Смартфоны"
+msgstr "Смартфони"
+
+#: .\webshop\models.py:56
+#, fuzzy
+msgid "Смартфони"
+msgstr "Смартфони"
+
+#: .\webshop\models.py:122
+#, fuzzy
+#| msgid "Модель смартфона"
+msgid "Бренд смартфона"
+msgstr "Модель смартфону"
+
+#: .\webshop\models.py:125
+#, fuzzy
+#| msgid "Дисплей"
+msgid "Тип дисплея"
+msgstr "Дисплей"
+
+#: .\webshop\models.py:129
+msgid "Возможность использования SD карты"
+msgstr "Можливість використання SD"
+
+#: .\webshop\models.py:193
+msgid "Новый заказ"
+msgstr "Нове замовлення"
+
+#: .\webshop\models.py:194
+msgid "Обрабатывается менеджером"
+msgstr "Обролюється менеджером"
+
+#: .\webshop\models.py:195
+msgid "В пути"
+msgstr ""
+
+#: .\webshop\models.py:196
+#, fuzzy
+#| msgid "Дополнительно"
+msgid "Выполнен"
+msgstr "Додатково"
+
+#: .\webshop\models.py:200
+msgid "Самовывоз"
+msgstr "Самовивіз"
+
+#: .\webshop\models.py:201
+msgid "Доставка"
+msgstr ""
+
+#: .\webshop\models.py:209
+#, fuzzy
+#| msgid "Адресс"
+msgid "Адрес"
+msgstr "Адреса"
+
+#: .\webshop\models.py:210
+#, fuzzy
+#| msgid "Форма заказа"
+msgid "Статус заказа"
+msgstr "Форма замовлення"
+
+#: .\webshop\models.py:211
+#, fuzzy
+#| msgid "Форма заказа"
+msgid "Тип заказа"
+msgstr "Форма замовлення"
+
+#: .\webshop\models.py:212
+#, fuzzy
+#| msgid "Оформление заказа"
+msgid "Комментарий к заказу"
+msgstr "Оформлення замовлення"
+
+#: .\webshop\models.py:213
+#, fuzzy
+#| msgid "Дата получения заказа"
+msgid "Дата создания заказа"
+msgstr "Дата отримання замовлення"
+
+#: .\webshop\templatetags\characteristic.py:32
+msgid "Видеокарта"
+msgstr "Відеокарта"

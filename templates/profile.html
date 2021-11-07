@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% include 'partials/header.html' %}
 
 {% block content %}
-
-    <h3 class="mb-3 mt-3"> Ваши заказы </h3>
+<div class="container" style="    margin-top: 70px;
+    margin-bottom: 120px;">
+<h3 >{% trans 'Ваши заказы' %}  </h3>
     {% if not orders.count %}
-        <div class="col-md-12" style="margin-top: 300px;margin-bottom: 300px">
-            <h3>У вас еще нет заказов <a href="{% url 'base' %}">Сделайте свой первый заказ</a></h3>
+        <div class="col-md-12">
+            <h3 style="margin-top: 25px;">{% trans 'У вас еще нет заказов' %} <a href="{% url 'base' %}">{% trans 'Сделайте свой первый заказ' %}</a></h3>
         </div>
     {% else %}
         <div class="col-md-12" style="margin-bottom: 250px; margin-top: 50px">
             <table class="table">
                 <thead>
-                <th scope="col">Номер</th>
-                <th scope="col">Статус</th>
-                <th scope="col">Сумма</th>
-                <th scope="col">Товар</th>
-                <th scope="col">Дополнительно</th>
+                <th scope="col">{% trans 'Номер' %}</th>
+                <th scope="col">{% trans 'Статус' %}</th>
+                <th scope="col">{% trans 'Сумма' %}</th>
+                <th scope="col">{% trans 'Товар' %}</th>
+                <th scope="col">{% trans 'Дополнительно' %}</th>
                 </thead>
                 <tbody>
                 {% for order in orders %}
@@ -40,20 +43,20 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Детализация</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">{% trans 'Детализация' %}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <h4 class="text-center">Товар</h4>
+                                            <h4 class="text-center">{% trans 'Товар' %}</h4>
                                             <table class="table">
                                                 <thead>
                                                 <tr>
-                                                    <th scope="col">Наименование</th>
-                                                    <th scope="col">Изображение</th>
-                                                    <th scope="col">Цена</th>
-                                                    <th scope="col">Количество</th>
-                                                    <th scope="col">Общая сумма</th>
+                                                    <th scope="col">{% trans 'Наименование' %}</th>
+                                                    <th scope="col">{% trans 'Изображение' %}</th>
+                                                    <th scope="col">{% trans 'Цена' %}</th>
+                                                    <th scope="col">{% trans 'Количество' %}</th>
+                                                    <th scope="col">{% trans 'Общая сумма' %} </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -68,7 +71,7 @@
                                                 {% endfor %}
                                                 <tr>
                                                     <td colspan="2"></td>
-                                                    <td>Всего: </td>
+                                                    <td>{% trans 'Всего' %}: </td>
                                                     <td>{{ order.basket.total_products }}</td>
                                                     <td>{{ order.basket.total_price }} грн.</td>
                                                 </tr>
@@ -77,7 +80,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Закрыть
+                                                {% trans 'Закрыть' %}
                                             </button>
                                         </div>
                                     </div>
@@ -92,4 +95,7 @@
         </div>
 
     {% endif %}
+</div>
+
+
 {% endblock %}

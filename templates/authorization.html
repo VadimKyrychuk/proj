@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="row" >
-    <div class="col-md-6 offset-md-3">
-        <h3 class="text-center" >Авторизация</h3>
+    <div class="container" style="display: flex;
+    flex-direction: column;
+    justify-content: center; margin-bottom: 100px;margin-top: 50px">
+    <div class="row" style="display: flex;justify-content: center">
+    <div class="col-md-6">
+        <h3 class="text-center">{% trans 'Авторизация' %}</h3>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
-            <input type="submit" class="btn btn-success" value="Войти">
+            <input type="submit" class="btn btn-success" value="{% trans 'Войти' %}">
         </form>
     </div>
     </div>
+    </div>
+
 {% endblock %}

@@ -2,6 +2,7 @@ from django.urls import path, include
 from .views import *
 from django.contrib.auth.views import LogoutView
 
+
 urlpatterns = [
     path('', MainView.as_view(), name='base'),
     path('search', SearchProd.as_view(), name='search'),
@@ -19,5 +20,8 @@ urlpatterns = [
     path('profile/',  Profile.as_view(), name='profile'),
     path('change-quant/<str:ct_model>/<str:slug>/',  ChangeQuant.as_view(), name='change_quant'),
     path('check/',  CheckView.as_view(), name='check'),
-    path('make-order/',  MakeOrder.as_view(), name='make_order')
+    path('make-order/',  MakeOrder.as_view(), name='make_order'),
+
 ]
+
+

@@ -1,28 +1,29 @@
+{% load i18n %}
 <table class="table">
   <tbody>
   <tr>
-      <td>Бренд: </td>
+      <td>{% trans 'Бренд' %}: </td>
       <td>{{ product.brand }}</td>
     </tr>
       <tr>
-      <td>Диагональ: </td>
+      <td>{% trans 'Диагональ' %}: </td>
       <td>{{ product.diagonal }}</td>
     </tr>
 
   <tr>
-      <td>Дисплей: </td>
+      <td>{% trans 'Дисплей' %}: </td>
       <td>{{ product.display }}</td>
     </tr>
   <tr>
-      <td>Процессор: </td>
+      <td>{% trans 'Процессор' %}: </td>
       <td>{{ product.cpu }}</td>
     </tr>
   <tr>
-      <td>Оперативная память: </td>
+      <td>{% trans 'Оперативная память' %}: </td>
       <td>{{ product.ram }}</td>
     </tr>
   <tr>
-      <td>Видекокарта: </td>
+      <td>{% trans 'Видекокарта' %}: </td>
       <td>{{ product.video }}</td>
     </tr>
 

@@ -1,0 +1,19 @@
+{% load i18n %}
+<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li><a href="{% url 'base' %}">{% trans 'Главная' %}</a></li>
+                        {% for category in categories %}
+						<li {% if request.get_full_path == category.url %} class="active" {% endif %}><a href="{{ category.url }}">{{ category.name }}</a></li>
+                        {% endfor %}
+					</ul>
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>

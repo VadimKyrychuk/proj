@@ -4,6 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
 
 
 def get_product_url(obj, viewname):
@@ -49,8 +51,9 @@ class Search:
 
 class ManagerCategory(models.Manager):
     CATEGORY_COUNT_NAME = {
-        'Ноутбуки': "notebook__count",
-        "Смартфоны": "smartphone__count"
+        _('Ноутбуки'): "notebook__count",
+        _("Смартфоны"): "smartphone__count",
+        _("Смартфони"): "smartphone__count",
     }
 
     def get_query_set(self):
@@ -63,11 +66,12 @@ class ManagerCategory(models.Manager):
             dict(name=c.name_category, url=c.get_absolute_url(), image=c.image,
                  count=getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
         ]
+        print(query_set)
         return info
 
 
 class Category(models.Model):
-    name_category = models.CharField(max_length=255, verbose_name='Название катеории')
+    name_category = models.CharField(max_length=255, verbose_name='Название категории')
     image = models.ImageField(verbose_name='Изображение категории', default='media/not.jpg')
     slug = models.SlugField(unique=True)
     objects = ManagerCategory()
@@ -115,17 +119,17 @@ class Notebook(Product):
 
 class Smartphone(Product):
 
-    brand = models.CharField(max_length=64, verbose_name='Бренд смартфона')
-    model_smart = models.CharField(max_length=64, verbose_name='Модель смартфона')
-    diagonal = models.CharField(max_length=255, verbose_name="Диагональ")
-    display = models.CharField(max_length=255, verbose_name="Тип дисплея")
-    resolution = models.CharField(max_length=255, verbose_name='Разрешение экрана')
-    accum = models.CharField(max_length=255, verbose_name="Объем аккумулятора")
-    ram = models.CharField(max_length=64, verbose_name="Оперативная память")
-    sd_card = models.BooleanField(default=True, verbose_name="Возможность использования SD карты")
-    sd_card_max_size = models.CharField(max_length=255, null=True, blank=True, verbose_name="Максимальный объем SD")
-    main_cam = models.CharField(max_length=64, verbose_name="Главная камера")
-    front_cam = models.CharField(max_length=64, verbose_name="Фронтальная камера")
+    brand = models.CharField(max_length=64, verbose_name=_('Бренд смартфона'))
+    model_smart = models.CharField(max_length=64, verbose_name=_('Модель смартфона'))
+    diagonal = models.CharField(max_length=255, verbose_name=_("Диагональ"))
+    display = models.CharField(max_length=255, verbose_name=_("Тип дисплея"))
+    resolution = models.CharField(max_length=255, verbose_name=_('Разрешение экрана'))
+    accum = models.CharField(max_length=255, verbose_name=_("Объем аккумулятора"))
+    ram = models.CharField(max_length=64, verbose_name=_("Оперативная память"))
+    sd_card = models.BooleanField(default=True, verbose_name=_("Возможность использования SD карты"))
+    sd_card_max_size = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Максимальный объем SD"))
+    main_cam = models.CharField(max_length=64, verbose_name=_("Главная камера"))
+    front_cam = models.CharField(max_length=64, verbose_name=_("Фронтальная камера"))
 
     def __str__(self):
         return f'{self.category.name_category}: {self.name_product}'
@@ -186,28 +190,28 @@ class Order(models.Model):
     DELIVERY_METHOD_DELIVERY = 'delivery'
 
     STATUS_CHOICE = (
-        (STATUS_NEW, 'Новый заказ'),
-        (STATUS_IN_PROC, "Обрабатывается менеджером"),
-        (STATUS_ON_THE_WAY, "В пути"),
-        (STATUS_COMPLETED, "Выполнен")
+        (STATUS_NEW, _('Новый заказ')),
+        (STATUS_IN_PROC, _("Обрабатывается менеджером")),
+        (STATUS_ON_THE_WAY, _("В пути")),
+        (STATUS_COMPLETED, _("Выполнен"))
     )
 
     DELIVERY_CHOICE = (
-        (DELIVERY_METHOD_SELF, 'Самовывоз'),
-        (DELIVERY_METHOD_DELIVERY, 'Доставка')
+        (DELIVERY_METHOD_SELF, _('Самовывоз')),
+        (DELIVERY_METHOD_DELIVERY, _('Доставка'))
     )
 
     customer = models.ForeignKey(Customer, verbose_name='Покупатель', on_delete=models.CASCADE, related_name='related_orders')
-    first_name = models.CharField(max_length=255, verbose_name='Имя')
-    last_name = models.CharField(max_length=255, verbose_name='Фамилия')
-    phone = models.CharField(max_length=20, verbose_name='Номер телефона')
-    basket = models.ForeignKey(Basket, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
-    adress = models.CharField(max_length=1024, verbose_name='Адрес', null=True, blank=True)
-    status = models.CharField(max_length=100, verbose_name='Статус заказа', choices=STATUS_CHOICE, default=STATUS_NEW)
-    buy_type = models.CharField(max_length=100, verbose_name='Тип заказа', choices=DELIVERY_CHOICE, default=DELIVERY_METHOD_SELF)
-    comment = models.TextField(verbose_name='Комментарий к заказу', null=True, blank=True)
-    created_at = models.DateTimeField(auto_now=True, verbose_name="Дата создания заказа")
-    order_date = models.DateField(verbose_name="Дата получения заказа", default=timezone.now)
+    first_name = models.CharField(max_length=255, verbose_name=_('Имя'))
+    last_name = models.CharField(max_length=255, verbose_name=_('Фамилия'))
+    phone = models.CharField(max_length=20, verbose_name=_('Номер телефона'))
+    basket = models.ForeignKey(Basket, verbose_name=_('Корзина'), on_delete=models.CASCADE, null=True, blank=True)
+    adress = models.CharField(max_length=1024, verbose_name=_('Адрес'), null=True, blank=True)
+    status = models.CharField(max_length=100, verbose_name=_('Статус заказа'), choices=STATUS_CHOICE, default=STATUS_NEW)
+    buy_type = models.CharField(max_length=100, verbose_name=_('Тип заказа'), choices=DELIVERY_CHOICE, default=DELIVERY_METHOD_SELF)
+    comment = models.TextField(verbose_name=_('Комментарий к заказу'), null=True, blank=True)
+    created_at = models.DateTimeField(auto_now=True, verbose_name=_("Дата создания заказа"))
+    order_date = models.DateField(verbose_name=_("Дата получения заказа"), default=timezone.now)
 
     def __str__(self):
         return str(self.id)
