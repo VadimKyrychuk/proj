@@ -75,8 +75,6 @@ class CategoryDetail(CartMix, CategoryMixin, DetailView, ListView):
         context['basket'] = self.basket
         p = Paginator(context['category_prod'], self.paginate_by)
         context['new'] = p.page(context['page_obj'].number)
-        print(context['category_prod'])
-        print(context['new'])
         return context
 
 
@@ -111,7 +109,6 @@ class DeleteFromBasket(CartMix, View):
             user=self.basket.holder, basket=self.basket, content=content_type,
             object_id=product.id
         )
-
         self.basket.products.remove(basket_product)
         basket_product.delete()
         calculated_basket(self.basket)

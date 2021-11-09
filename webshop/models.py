@@ -66,7 +66,6 @@ class ManagerCategory(models.Manager):
             dict(name=c.name_category, url=c.get_absolute_url(), image=c.image,
                  count=getattr(c, self.CATEGORY_COUNT_NAME[c.name_category])) for c in query_set
         ]
-        print(query_set)
         return info
 
 

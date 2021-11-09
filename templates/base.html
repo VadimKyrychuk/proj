@@ -1,138 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-        {% load static %}
-        {% load i18n %}
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Techno_Shop</title>
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="{% static 'bootstrap.min.css' %}"/>
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="{% static 'slick.css' %}"/>
-		<link type="text/css" rel="stylesheet" href="{% static 'slick-theme.css' %}"/>
-		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="{% static 'nouislider.min.css' %}"/>
-		<!-- Font Awesome Icon -->
-		<link type="text/css" rel="stylesheet" href="{% static 'font-awesome.min.css' %}"/>
-		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="{% static 'style.css' %}"/>
+<head>
+    {% load static %}
+    {% load i18n %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Techno_Shop</title>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="{% static 'bootstrap.min.css' %}"/>
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="{% static 'slick.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'slick-theme.css' %}"/>
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="{% static 'nouislider.min.css' %}"/>
+    <!-- Font Awesome Icon -->
+    <link type="text/css" rel="stylesheet" href="{% static 'font-awesome.min.css' %}"/>
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'style.css' %}"/>
 
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-    </head>
-	<body>
-    {% include 'partials/header.html' %}
-		<!-- NAVIGATION -->
+</head>
+<body>
+{% include 'partials/header.html' %}
+<!-- NAVIGATION -->
 
-		<!-- /NAVIGATION -->
+<!-- /NAVIGATION -->
 {% block content %}
     {% include 'partials/navgation.html' %}
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- shop -->
-                    {% for category in categories %}
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-							<div class="shop-img" style="width: 260px;height: 250px;overflow: hidden;">
-								<img style="width: 260px;height: 250px;object-fit: contain;object-position: right;"
-                                     src="{{ category.image.url }}" alt="" >
-							</div>
-							<div class="shop-body">
-								<h3 style="color: black">{{ category.name }}</h3>
-								<a href="{{ category.url }}" class="cta-btn">Перейти <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
+
+                        {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <!-- shop -->
+                {% for category in categories %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="shop">
+                            <div class="shop-img" style="width: 260px;height: 250px;overflow: hidden;">
+                                <img style="width: 260px;height: 250px;object-fit: contain;object-position: right;"
+                                     src="{{ category.image.url }}" alt="">
+                            </div>
+                            <div class="shop-body">
+                                <h3 style="color: black">{{ category.name }}</h3>
+                                <a href="{{ category.url }}" class="cta-btn">Перейти <i
+                                        class="fa fa-arrow-circle-right"></i></a>
+                            </div>
                         </div>
-                    {% endfor %}
-					<!-- /shop -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+                    </div>
+                {% endfor %}
+                <!-- /shop -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
 
-		<!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- section title -->
-					<div class="col-md-12">
-						<div class="section-title">
-							<h3 class="title">{% trans 'Товары' %} </h3>
-                            <div class="section-nav">
-								<div id="slick-nav-5" class="products-slick-nav"></div>
-							</div>
-						</div>
-					</div>
-					<!-- /section title -->
-
-					<!-- Products tab & slick -->
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- section title -->
                 <div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
-								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
-										<!-- product -->
+                    <div class="section-title">
+                        <h3 class="title">{% trans 'Товары' %} </h3>
+                        <div class="section-nav">
+                            <div id="slick-nav-5" class="products-slick-nav"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /section title -->
 
-                                        {% for product in products %}
+                <!-- Products tab & slick -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="products-tabs">
+                            <!-- tab -->
+                            <div id="tab2" class="tab-pane fade in active">
+                                <div class="products-slick" data-nav="#slick-nav-2">
+                                    <!-- product -->
 
-										<div class="product">
-											<div class="product-img" style="width: 260px;height: 250px;overflow: hidden;">
-												<img src="{{ product.image_product.url }}" alt="" style="width: 260px;height: 250px;object-fit: contain;">
-											</div>
-											<div class="product-body">
-												<p class="product-category">{{ product.category }}</p>
-												<h3 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.name_product}}</a></h3>
-												<h4 class="product-price">{{product.price}} грн.</h4>
-											</div>
-											<div class="add-to-cart">
+                                    {% for product in products %}
+
+                                        <div class="product">
+                                            <div class="product-img"
+                                                 style="width: 260px;height: 250px;overflow: hidden;">
+                                                <img src="{{ product.image_product.url }}" alt=""
+                                                     style="width: 260px;height: 250px;object-fit: contain;">
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">{{ product.category }}</p>
+                                                <h3 class="product-name"><a
+                                                        href="{{ product.get_absolute_url }}">{{ product.name_product }}</a>
+                                                </h3>
+                                                <h4 class="product-price">{{ product.price }} грн.</h4>
+                                            </div>
+                                            <div class="add-to-cart">
                                                 <a href="{% url 'add_to_basket' ct_model=product.get_model_name slug=product.slug %}">
-                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {% trans 'В корзину' %} </button>
+                                                    <button class="add-to-cart-btn"><i
+                                                            class="fa fa-shopping-cart"></i> {% trans 'В корзину' %}
+                                                    </button>
                                                 </a>
-											</div>
-										</div>
-                                        {% endfor %}
-										<!-- /product -->
-									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
-								</div>
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <!-- /product -->
+                                </div>
+                                <div id="slick-nav-2" class="products-slick-nav"></div>
+                            </div>
+                            <!-- /tab -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
 {% endblock %}
 
 {% include 'partials/footer.html' %}
 
-		<!-- jQuery Plugins -->
-		<script src="{% static  'jquery.min.js' %}"></script>
-		<script src="{% static  'bootstrap.min.js' %}"></script>
-		<script src="{% static  'slick.min.js' %}"></script>
-		<script src="{% static 'nouislider.min.js' %}"></script>
-		<script src="{% static  'jquery.zoom.min.js' %}"></script>
-		<script src="{% static  'main.js' %}"></script>
+<!-- jQuery Plugins -->
+<script src="{% static  'jquery.min.js' %}"></script>
+<script src="{% static  'bootstrap.min.js' %}"></script>
+<script src="{% static  'slick.min.js' %}"></script>
+<script src="{% static 'nouislider.min.js' %}"></script>
+<script src="{% static  'jquery.zoom.min.js' %}"></script>
+<script src="{% static  'main.js' %}"></script>
 
-	</body>
+</body>
 </html>
