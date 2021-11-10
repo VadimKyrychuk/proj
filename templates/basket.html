@@ -3,10 +3,11 @@
 {% load i18n %}
 {% static 'bootstrap.min.css' %}
 {% block content %}
-    <h3 class="text-center mt-5 mb-5">{% trans 'Ваша корзина' %}
+    <br>
+    <h3 class="text-center mt-5 mb-5" >{% trans 'Ваша корзина' %}
         {% if not basket.products.count %}{% trans 'пуста' %}{% endif %}</h3>
 
-    <div class="container">
+    <div class="container" style="min-height: 200px; ">
         {% if basket.products.count %}
             <table class="table">
                 <thead>

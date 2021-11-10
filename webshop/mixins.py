@@ -11,13 +11,18 @@ class CategoryMixin(SingleObjectMixin):
         'smartphones': Smartphone
     }
 
+    def __init__(self):
+        self.request = None
+
     def get_context_data(self, **kwargs):
         if isinstance(self.get_object(), Category):
             model = self.CATEGORY_SLUG[self.get_object().slug]
             context = super().get_context_data(**kwargs)
             context['categories'] = Category.objects.get_category_for_navbar()
             context['category_prod'] = model.objects.all()
+            print(self.request.GET)
             return context
+
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.get_category_for_navbar()
         return context

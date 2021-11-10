@@ -10,7 +10,7 @@ from django.views.generic import DetailView, View, ListView
 from .forms import LoginForm, Registration
 from .forms import OrderForm
 from .mixins import CategoryMixin, CartMix
-from .models import Notebook, Smartphone, Category,Latest , Customer, BasketProduct, Product, Search
+from .models import Notebook, Smartphone, Category, Latest, Customer, BasketProduct, Product, Search
 from .models import Order
 from .util import calculated_basket
 
@@ -26,6 +26,7 @@ class MainView(CartMix, View):
             'basket': self.basket
         }
         return render(request, 'base.html', content)
+
 
 class SearchProd(CartMix, View):
     def get(self, request):
@@ -55,7 +56,7 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
     template_name = 'product.html'
     slug_url_kwarg = 'slug'
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ct_model'] = self.model._meta.model_name
         context['basket'] = self.basket
@@ -63,21 +64,17 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
 
 
 class CategoryDetail(CartMix, CategoryMixin, DetailView, ListView):
-    model = Category
+
     context_object_name = 'category'
     template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
-    paginate_by = 2
+    queryset = Category.objects.all()
     object_list = Category.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['basket'] = self.basket
-        p = Paginator(context['category_prod'], self.paginate_by)
-        context['new'] = p.page(context['page_obj'].number)
         return context
-
-
 
 
 class AddToBasket(CartMix, View):
@@ -99,7 +96,6 @@ class AddToBasket(CartMix, View):
             return HttpResponseRedirect('/')
 
 
-
 class DeleteFromBasket(CartMix, View):
     def get(self, request, *args, **kwargs):
         ct_model, prod_slug = kwargs.get('ct_model'), kwargs.get('slug')
@@ -114,6 +110,7 @@ class DeleteFromBasket(CartMix, View):
         calculated_basket(self.basket)
         messages.add_message(request, messages.INFO, 'Товар успешно удален')
         return HttpResponseRedirect('/basket/')
+
 
 class BasketView(CartMix, View):
     def get(self, request, *args, **kwargs):
@@ -139,8 +136,9 @@ class ChangeQuant(CartMix, View):
         basket_product.quantity = quant
         basket_product.save()
         calculated_basket(self.basket)
-        messages.add_message(request, messages.INFO, 'Количество изменено')
+        messages.add_message(request, messages.SUCCESS, 'Количество изменено', extra_tags='ex-tag')
         return HttpResponseRedirect('/basket/')
+
 
 class CheckView(CartMix, View):
     def get(self, request, *args, **kwargs):
@@ -152,6 +150,7 @@ class CheckView(CartMix, View):
             'form': form
         }
         return render(request, 'check.html', content)
+
 
 class MakeOrder(CartMix, View):
 
@@ -175,7 +174,8 @@ class MakeOrder(CartMix, View):
             new_order.basket = self.basket
             new_order.save()
             customer.orders.add(new_order)
-            messages.add_message(request, messages.INFO, 'Спасибо за заказ, ближайшим временем наш менеджер свяжется с Вами')
+            messages.add_message(request, messages.INFO,
+                                 'Спасибо за заказ, ближайшим временем наш менеджер свяжется с Вами')
             return HttpResponseRedirect('/')
         return HttpResponseRedirect('/check/')
 
@@ -203,7 +203,7 @@ class RegistrationView(CartMix, View):
     def get(self, request, *args, **kwargs):
         form = Registration(request.POST or None)
         categories = Category.objects.get_category_for_navbar()
-        context = {'form':form, 'categories': categories, 'basket': self.basket}
+        context = {'form': form, 'categories': categories, 'basket': self.basket}
         return render(request, 'registration.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -222,7 +222,7 @@ class RegistrationView(CartMix, View):
                 phone=form.cleaned_data['phone'],
                 adress=form.cleaned_data['adress']
             )
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'] )
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
             return HttpResponseRedirect('/')
         context = {'form': form, 'basket': self.basket}
@@ -234,5 +234,4 @@ class Profile(CartMix, View):
         customer = Customer.objects.get(user=request.user)
         orders = Order.objects.filter(customer=customer).order_by('-created_at')
         categories = Category.objects.all()
-        return render(request, 'profile.html', {'orders': orders, 'basket':self.basket, 'categories': categories})
-
+        return render(request, 'profile.html', {'orders': orders, 'basket': self.basket, 'categories': categories})

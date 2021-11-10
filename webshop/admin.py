@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import *
 from django.forms import ModelChoiceField, ModelForm, ValidationError
 from modeltranslation.admin import TranslationAdmin
@@ -25,6 +27,8 @@ class CategoryAdmin(TranslationAdmin):
 
 @admin.register(Notebook)
 class NotebookAdmin(TranslationAdmin):
+    list_display = ['name_product', 'price', 'image_product']
+
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'category':

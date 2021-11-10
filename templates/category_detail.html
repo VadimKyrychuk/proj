@@ -25,15 +25,17 @@
     <!-- SECTION -->
     <div class="section">
         <!-- container -->
-        <div class="container">
+        <div class="container" style="min-width: 1400px">
             <!-- row -->
-            <div class="row">
+            <div class="row" style="    display: flex;
+    flex-direction: column;
+    align-items: center;">
                 <!-- STORE -->
                 <div id="store" class="col-md-9">
                     <!-- store products -->
                     <div class="row">
                         <!-- product -->
-                        {% for product in new %}
+                        {% for product in category_prod %}
                             <div class="col-md-4 col-xs-6">
                                 <div class="product">
                                     <div class="product-img"
@@ -53,11 +55,13 @@
                                     <div class="product-body">
                                         <p class="product-category">{{ product.category }}</p>
                                         <h3 class="product-name"><a
-                                                href="{{ product.get_absolute_url }}">{{ product.name_product|truncatechars:30 }}</a></h3>
+                                                href="{{ product.get_absolute_url }}">{{ product.name_product|truncatechars:20 }}</a></h3>
                                         <h4 class="product-price">{{ product.price }} грн.</h4>
                                     </div>
                                     <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
+                                        {% if not request.user.is_authenticated %}
+                                        <button class="add-to-cart-btn" disabled><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
+                                            {% endif %}
                                         </button>
                                     </div>
                                 </div>
@@ -67,7 +71,8 @@
                     </div>
                     <!-- /store products -->
                     <!-- store bottom filter -->
-{% include 'partials/pagination.html' %}
+{% include 'partials/pagination.html'  %}
+
                     <!-- /store bottom filter -->
                 </div>
                 <!-- /STORE -->

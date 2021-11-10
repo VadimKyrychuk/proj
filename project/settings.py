@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+       "django.contrib.messages.context_processors.messages")
+
 # Application definition
 
 INSTALLED_APPS = [
