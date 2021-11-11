@@ -33,9 +33,12 @@
 <!-- NAVIGATION -->
 
 <!-- /NAVIGATION -->
+
+{% block content %}
+    {% include 'partials/navgation.html' %}
 {% if messages %}
       {% for message in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible show" role="alert">
         {{ message}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -43,9 +46,6 @@
 </div>
     {% endfor %}
 {% endif %}
-{% block content %}
-    {% include 'partials/navgation.html' %}
-
     <!-- SECTION -->
     <div class="section">
         <!-- container -->

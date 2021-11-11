@@ -38,6 +38,7 @@ class NotebookAdmin(TranslationAdmin):
 
 @admin.register(Smartphone)
 class SmartphoneAdmin(TranslationAdmin):
+    list_display = ['brand','model_smart','price']
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == 'category':
             return ModelChoiceField(Category.objects.filter(slug='smartphones'))
@@ -49,7 +50,8 @@ class SmartphoneAdmin(TranslationAdmin):
 
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
-    pass
+
+    list_display = ['holder','total_products','total_price']
 
 
 @admin.register(BasketProduct)
@@ -64,6 +66,6 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = ['id','first_name','last_name','status','created_at']
+    list_filter = ['created_at']
 

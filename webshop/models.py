@@ -49,6 +49,7 @@ class SearchProd:
 class Search:
     objects = SearchProd()
 
+
 class ManagerCategory(models.Manager):
     CATEGORY_COUNT_NAME = {
         _('Ноутбуки'): "notebook__count",
@@ -70,6 +71,10 @@ class ManagerCategory(models.Manager):
 
 
 class Category(models.Model):
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
     name_category = models.CharField(max_length=255, verbose_name='Название категории')
     image = models.ImageField(verbose_name='Изображение категории', default='media/not.jpg')
     slug = models.SlugField(unique=True)
@@ -101,6 +106,10 @@ class Product(models.Model):
 
 
 class Notebook(Product):
+    class Meta:
+        verbose_name = 'Ноутбук'
+        verbose_name_plural = 'Ноутбуки'
+
     brand = models.CharField(max_length=255, verbose_name='Бренд ноутбука')
     diagonal = models.CharField(max_length=255, verbose_name="Диагональ")
     display = models.CharField(max_length=255, verbose_name="Тип дисплея")
@@ -117,6 +126,9 @@ class Notebook(Product):
 
 
 class Smartphone(Product):
+    class Meta:
+        verbose_name = 'Смартфон'
+        verbose_name_plural = 'Смартфоны'
 
     brand = models.CharField(max_length=64, verbose_name=_('Бренд смартфона'))
     model_smart = models.CharField(max_length=64, verbose_name=_('Модель смартфона'))
@@ -138,6 +150,9 @@ class Smartphone(Product):
 
 
 class BasketProduct(models.Model):
+    class Meta:
+        verbose_name = 'Продукты в корзине'
+        verbose_name_plural = 'Продукты в корзине'
     user = models.ForeignKey('Customer', verbose_name='Покупатель', on_delete=models.CASCADE)
     basket = models.ForeignKey('Basket', verbose_name='Корзина', on_delete=models.CASCADE,
                                related_name='related_basket')
@@ -159,6 +174,10 @@ class BasketProduct(models.Model):
 
 class Basket(models.Model):
 
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
     holder = models.ForeignKey('Customer', null=True, on_delete=models.CASCADE, verbose_name='Пользователь')
     products = models.ManyToManyField(BasketProduct, blank=True, related_name='related_basket')
     total_products = models.PositiveIntegerField(default=0)
@@ -171,16 +190,23 @@ class Basket(models.Model):
 
 
 class Customer(models.Model):
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
     user = models.ForeignKey(current_user, verbose_name='Пользователь', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефона', null=True, blank=True)
     adress = models.CharField(max_length=255, verbose_name='Адресс проживания', null=True, blank=True)
     orders = models.ManyToManyField('Order', verbose_name='Заказы покупателя', related_name='related_customer')
 
     def __str__(self):
-        return f'Пользователь: {self.user.first_name} {self.user.last_name}'
+        return f'Пользователь: {self.user}'
 
 
 class Order(models.Model):
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
     STATUS_NEW = 'new'
     STATUS_IN_PROC = 'in_process'
     STATUS_ON_THE_WAY = 'on_the_way'
@@ -214,3 +240,6 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    def get_name(self):
+        return self.first_name + self.last_name

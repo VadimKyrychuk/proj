@@ -16,28 +16,37 @@
             <div class="col-md-12" style="margin-bottom: 250px; margin-top: 50px">
                 <table class="table">
                     <thead>
+                    <th scope="col">{% trans 'Номер замовлення' %}</th>
                     <th scope="col">{% trans 'Статус' %}</th>
                     <th scope="col">{% trans 'Сумма' %}</th>
                     <th scope="col">{% trans 'Товар' %}</th>
+                    <th scope="col">{% trans 'Количество' %}</th>
                     <th scope="col">{% trans 'Дополнительно' %}</th>
                     </thead>
                     <tbody>
                     {% for order in orders %}
                         <tr>
+                            <th scope="row">№ {{ order.id }}</th>
                             <th scope="row">{{ order.get_status_display }}</th>
                             <th scope="row">{{ order.basket.total_price }}</th>
                             <td>
                                 <ul>
                                     {% for item in order.basket.products.all %}
-                                        <li><b>{{ item.cont_object.name_product }} - {{ item.quantity }} шт.</b></li>
-
+                                        <li><b>{{ item.cont_object.name_product }}</b></li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for item in order.basket.products.all %}
+                                        <li><b>{{ item.quantity }} шт. </b></li>
                                     {% endfor %}
                                 </ul>
                             </td>
                             <td>
                                 <button class="btn btn-info" data-toggle="modal"
                                         data-target="#exampleModal-{{ order.id }}">
-                                    Дополнительно
+                                    {% trans 'Дополнительно' %}
                                 </button>
                                 <div class="modal fade" id="exampleModal-{{ order.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -78,7 +87,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 {% trans 'Закрыть' %}
                             </button>

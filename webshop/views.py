@@ -6,7 +6,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import DetailView, View, ListView
-
+from django.utils.translation import ugettext_lazy as _
 from .forms import LoginForm, Registration
 from .forms import OrderForm
 from .mixins import CategoryMixin, CartMix
@@ -89,10 +89,10 @@ class AddToBasket(CartMix, View):
             if created:
                 self.basket.products.add(basket_product)
             calculated_basket(self.basket)
-            messages.add_message(request, messages.INFO, 'Товар успешно добавлен')
+            messages.add_message(request, messages.INFO, _('Товар успешно добавлен'))
             return HttpResponseRedirect('/basket/')
         else:
-            messages.add_message(request, messages.INFO, 'Авторизируйтесь для возможности покупки')
+            messages.add_message(request, messages.INFO, _('Авторизируйтесь для возможности покупки'))
             return HttpResponseRedirect('/')
 
 
@@ -108,7 +108,7 @@ class DeleteFromBasket(CartMix, View):
         self.basket.products.remove(basket_product)
         basket_product.delete()
         calculated_basket(self.basket)
-        messages.add_message(request, messages.INFO, 'Товар успешно удален')
+        messages.add_message(request, messages.INFO, _('Товар успешно удален'))
         return HttpResponseRedirect('/basket/')
 
 
@@ -136,7 +136,7 @@ class ChangeQuant(CartMix, View):
         basket_product.quantity = quant
         basket_product.save()
         calculated_basket(self.basket)
-        messages.add_message(request, messages.SUCCESS, 'Количество изменено', extra_tags='ex-tag')
+        messages.add_message(request, messages.SUCCESS, _('Количество изменено'), extra_tags='ex-tag')
         return HttpResponseRedirect('/basket/')
 
 
@@ -175,7 +175,7 @@ class MakeOrder(CartMix, View):
             new_order.save()
             customer.orders.add(new_order)
             messages.add_message(request, messages.INFO,
-                                 'Спасибо за заказ, ближайшим временем наш менеджер свяжется с Вами')
+                                 _('Спасибо за заказ, ближайшим временем наш менеджер свяжется с Вами'))
             return HttpResponseRedirect('/')
         return HttpResponseRedirect('/check/')
 
