@@ -65,10 +65,11 @@ class ProductDetail(CartMix, CategoryMixin, DetailView):
 
 class CategoryDetail(CartMix, CategoryMixin, DetailView, ListView):
 
+    model = Category
     context_object_name = 'category'
     template_name = 'category_detail.html'
     slug_url_kwarg = 'slug'
-    queryset = Category.objects.all()
+    paginate_by = 8
     object_list = Category.objects.all()
 
     def get_context_data(self, **kwargs):

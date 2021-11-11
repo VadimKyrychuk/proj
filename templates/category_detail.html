@@ -59,10 +59,10 @@
                                         <h4 class="product-price">{{ product.price }} грн.</h4>
                                     </div>
                                     <div class="add-to-cart">
-                                        {% if not request.user.is_authenticated %}
-                                        <button class="add-to-cart-btn" disabled><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
-                                            {% endif %}
+                                        <a href="{% url 'add_to_basket' ct_model=product.get_model_name slug=product.slug %}">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>{% trans 'В корзину' %}
                                         </button>
+                                            </a>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <!-- /store products -->
                     <!-- store bottom filter -->
-{% include 'partials/pagination.html'  %}
+
 
                     <!-- /store bottom filter -->
                 </div>
